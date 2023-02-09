@@ -1,12 +1,25 @@
+import Option from '~/server/models/Option.model';
 import Product from '~/server/models/Product.model';
+import Toughbook from '~/server/models/Toughbook.model';
 
 export default defineEventHandler(async (event) => {
 	try {
 		const { id } = event.context.params;
 
-		const product = await Product.findOne({ _id: id }).populate(
-			'toughbooks options'
-		);
+		const product = await Product.findOne({ _id: id }).populate([
+			{
+				path: 'models',
+				model: Toughbook,
+			},
+			{
+				path: 'options',
+				model: Option,
+			},
+		]);
+
+		// const product = await Product.findOne({ _id: id }).populate(
+		// 	'toughbooks options'
+		// );
 
 		// const product = await Product.aggregate([
 		// 	{ $match: { name: 'Toughbook 55' } },
@@ -32,6 +45,6 @@ export default defineEventHandler(async (event) => {
 
 		// const product = await Product.findOne({ _id: id });
 	} catch (error) {
-		console.log(error);
+		return error;
 	}
 });

@@ -4,6 +4,7 @@ export const useBuilderStore = defineStore('builder', {
 		product: {},
 		toughbooks: [],
 		toughbook: {},
+		accessories: [],
 		productTotal: {
 			base: 0,
 			cpu: 0,
@@ -17,9 +18,6 @@ export const useBuilderStore = defineStore('builder', {
 		cartTotal: 0,
 		salesRep: null,
 		salesReps: ['Lori Oquendo', 'Michael Cayes', 'Claes Adler'],
-		tb: null,
-		pid: null,
-		message: null,
 	}),
 	actions: {
 		async fetchProducts() {
@@ -43,6 +41,9 @@ export const useBuilderStore = defineStore('builder', {
 			this.toughbook = await $fetch(
 				`/api/toughbook/query?name=${name}&cpu=${cpu}&gps=${gps}&screen=${screen}`
 			);
+		},
+		async fetchAccessories() {
+			this.accessories = await $fetch('/api/accessory');
 		},
 		updateModel(o, v) {
 			if (o === 'CPU') {

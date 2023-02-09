@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
 
 		const product = await Product.findOne({ _id: id }).populate([
 			{
-				path: 'models',
+				path: 'toughbooks',
 				model: Toughbook,
 			},
 			{

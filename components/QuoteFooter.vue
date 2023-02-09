@@ -4,7 +4,7 @@ const router = useRouter();
 
 const storeBuilder = useBuilderStore();
 
-async function loadProduct() {
+async function addProductToQuote() {
 	storeBuilder.addToCart();
 	router.push({ path: '/builder/accessories' });
 }
@@ -39,7 +39,7 @@ async function loadProduct() {
 						variant="tonal"
 						color="blue-darken-2"
 						class="ml-6"
-						@click="loadProduct"
+						@click="addProductToQuote"
 						>Add To Quote</v-btn
 					>
 				</div>

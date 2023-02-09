@@ -77,10 +77,23 @@ const storeBuilder = useBuilderStore();
 					</div>
 
 					<div class="d-flex justify-end font-weight-bold">
-						{{ item.price }}
+						${{ item.price }}
 					</div>
 				</v-card>
 			</div>
 		</section>
+
+		<v-footer app style="width: 100%">
+			<v-container class="d-flex justify-center align-center">
+				<v-btn
+					variant="tonal"
+					color="blue"
+					prepend-icon="mdi-file-sign"
+					to="/builder/summary"
+				>
+					View Quote Summary
+				</v-btn></v-container
+			>
+		</v-footer>
 	</v-navigation-drawer>
 </template>

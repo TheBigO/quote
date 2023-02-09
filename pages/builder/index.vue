@@ -1,9 +1,15 @@
 <script setup>
 import { useBuilderStore } from '@/store/builder';
+const router = useRouter();
 
 const storeBuilder = useBuilderStore();
 
 const dialog = ref(false);
+
+async function addProductToQuote() {
+	storeBuilder.addToCart();
+	router.push({ path: '/builder/accessories' });
+}
 </script>
 
 <template>
@@ -103,9 +109,44 @@ const dialog = ref(false);
 					</section>
 				</div>
 			</div>
+			<section>
+				<v-card
+					flat
+					class="d-flex flex-column bg-grey-lighten-4 rounded-xl pa-12"
+				>
+					<div class="text-overline mb-3">Product Details</div>
+					<div class="d-flex align-end">
+						<div class="text-grey-darken-2 mr-3">Total</div>
+						<div class="text-h4 font-weight-bold mr-3">
+							{{ storeBuilder.getProductTotal }}
+						</div>
+						<div>
+							<v-chip
+								v-if="storeBuilder.toughbook.inventory === true"
+								color="green"
+								label
+								>In Stock</v-chip
+							>
+						</div>
+					</div>
+					<div class="d-flex mb-6">
+						<div class="text-grey-darken-2 mr-3">SKU #</div>
+						<div class="text-grey-darken-2">
+							{{ storeBuilder.toughbook.sku }}
+						</div>
+					</div>
+					<v-btn
+						variant="tonal"
+						block
+						color="blue-darken-2"
+						@click="addProductToQuote"
+						>Add To Quote</v-btn
+					>
+				</v-card>
+			</section>
 		</v-col>
 	</v-row>
-	<QuoteFooter />
+	<!-- <QuoteFooter /> -->
 </template>
 
 <style scoped>

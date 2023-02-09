@@ -1,3 +1,4 @@
+import Accessory from '~/server/models/Accessory.model';
 import Toughbook from '~/server/models/Toughbook.model';
 
 export default defineEventHandler(async (event) => {
@@ -11,7 +12,7 @@ export default defineEventHandler(async (event) => {
 			screen: query.screen,
 		}).populate({
 			path: 'accessories',
-			model: 'Accessory',
+			model: Accessory,
 		});
 
 		return toughbook;

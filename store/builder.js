@@ -69,8 +69,9 @@ export const useBuilderStore = defineStore('builder', {
 		decreaseCount() {
 			this.quantity--;
 		},
-		addToCart() {
+		async addToCart() {
 			this.drawer = true;
+			this.toughbook = await $fetch(`/api/toughbook/${this.toughbook._id}`);
 
 			const totalPrice =
 				this.productTotal.base +

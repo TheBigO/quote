@@ -34,7 +34,7 @@ const storeBuilder = useBuilderStore();
 			{{ storeBuilder.toughbook.name }}
 		</div>
 
-		<div class="d-flex justify-center align-stretch">
+		<div class="d-flex align-stretch flex-wrap">
 			<div
 				v-for="accessory in storeBuilder.toughbook.accessories"
 				:key="accessory._id"
@@ -43,7 +43,7 @@ const storeBuilder = useBuilderStore();
 					width="360px"
 					min-height="500"
 					flat
-					class="d-flex flex-column align-center justify-space-between bg-grey-lighten-5 rounded-xl pa-12 mx-3"
+					class="d-flex flex-column align-center justify-space-between bg-grey-lighten-5 rounded-xl pa-12 ma-3"
 				>
 					<div class="d-flex align-center flex-column">
 						<div><v-img :src="accessory.image" width="180px" /></div>

@@ -112,11 +112,11 @@ async function addProductToQuote() {
 			<section>
 				<v-card
 					flat
-					class="d-flex flex-column bg-grey-lighten-4 rounded-xl pa-12"
+					class="d-flex flex-column bg-grey-lighten-5 rounded-xl pa-12"
 				>
 					<div class="text-overline mb-3">Product Details</div>
 					<div class="d-flex align-end">
-						<div class="text-grey-darken-2 mr-3">Total</div>
+						<div class="text-body-2 text-grey-darken-2 mr-3">Total</div>
 						<div class="text-h4 font-weight-bold mr-3">
 							{{ storeBuilder.getProductTotal }}
 						</div>
@@ -130,18 +130,31 @@ async function addProductToQuote() {
 						</div>
 					</div>
 					<div class="d-flex mb-6">
-						<div class="text-grey-darken-2 mr-3">SKU #</div>
-						<div class="text-grey-darken-2">
+						<div class="text-body-2 text-grey-darken-2 mr-5">SKU</div>
+						<div class="text-body-2 text-grey-darken-2">
 							{{ storeBuilder.toughbook.sku }}
 						</div>
 					</div>
-					<v-btn
-						variant="tonal"
-						block
-						color="blue-darken-2"
-						@click="addProductToQuote"
-						>Add To Quote</v-btn
-					>
+					<div>
+						<v-btn
+							variant="tonal"
+							block
+							color="blue-darken-2"
+							@click="addProductToQuote"
+							>Add To Quote</v-btn
+						>
+					</div>
+
+					<div class="d-flex mt-5">
+						<v-icon color="grey-darken-3" class="mr-3">mdi-truck-outline</v-icon
+						><span
+							v-if="storeBuilder.toughbook.inventory === true"
+							class="text-body-2"
+							>In Stock & Shipping</span
+						><span v-else class="text-body-2"
+							>This item is not in stock, delivery times very</span
+						>
+					</div>
 				</v-card>
 			</section>
 		</v-col>

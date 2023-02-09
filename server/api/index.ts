@@ -1,5 +1,5 @@
 export default defineEventHandler((event) => {
 	return {
-		api: 'works',
+		api: 'If you are reading this than that means it is working',
 	};
 });

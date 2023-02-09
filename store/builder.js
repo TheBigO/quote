@@ -27,11 +27,6 @@ export const useBuilderStore = defineStore('builder', {
 		},
 		async fetchProduct(productID) {
 			this.product = await $fetch(`/api/product/${productID}`);
-			// const { data } = await useFetch(
-			// 	`https://fakestoreapi.com/products/${productID}`
-			// );
-			// this.tb = data;
-
 			this.toughbook = this.product.toughbooks[0];
 			this.productTotal.base = this.product.basePrice;
 		},
@@ -46,7 +41,7 @@ export const useBuilderStore = defineStore('builder', {
 			const screen = this.toughbook.screen;
 
 			this.toughbook = await $fetch(
-				`/api/toughbook/one?name=${name}&cpu=${cpu}&gps=${gps}&screen=${screen}`
+				`/api/toughbook/query?name=${name}&cpu=${cpu}&gps=${gps}&screen=${screen}`
 			);
 		},
 		updateModel(o, v) {

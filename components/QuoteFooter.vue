@@ -6,7 +6,7 @@ const storeBuilder = useBuilderStore();
 
 async function loadProduct() {
 	storeBuilder.addToCart();
-	router.push({ path: '/products/extra' });
+	router.push({ path: '/builder/accessories' });
 }
 </script>
 

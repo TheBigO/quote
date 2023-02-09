@@ -30,7 +30,7 @@ const toughbookSchema = new Schema(
 			trim: true,
 		},
 		inventory: {
-			type: String,
+			type: Boolean,
 			trim: true,
 		},
 		cpu: {

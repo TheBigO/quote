@@ -15,6 +15,7 @@ storeBuilder.fetchToughbooks();
 				<th class="text-center">RAM</th>
 				<th class="text-center">GPS</th>
 				<th class="text-center">Screen</th>
+				<th class="text-center">Inventory</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -32,6 +33,11 @@ storeBuilder.fetchToughbooks();
 					<v-icon :color="product.screen === 'Standard' ? 'red' : 'green'">{{
 						product.screen === 'Standard' ? 'mdi-close' : 'mdi-check'
 					}}</v-icon>
+				</td>
+				<td class="text-center">
+					<v-chip v-if="product.inventory === true" color="green" label
+						>In Stock</v-chip
+					>
 				</td>
 			</tr>
 		</tbody>

@@ -25,7 +25,7 @@ storeBuilder.fetchToughbooks();
 				<td class="text-center">{{ product.cpu }}</td>
 				<td class="text-center">{{ product.ram }}</td>
 				<td class="text-center">
-					<v-icon :color="product.gps === 'No GPS' ? 'red' : 'green'">{{
+					<v-icon :color="product.gps === 'No 4G LTE/GPS' ? 'red' : 'green'">{{
 						product.gps === 'No GPS' ? 'mdi-close' : 'mdi-check'
 					}}</v-icon>
 				</td>

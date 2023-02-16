@@ -3,11 +3,6 @@ import { useBuilderStore } from '@/store/builder';
 const router = useRouter();
 
 const storeBuilder = useBuilderStore();
-
-function startBuild() {
-	storeBuilder.resetProducts;
-	router.push({ path: '/' });
-}
 </script>
 
 <template>
@@ -15,11 +10,11 @@ function startBuild() {
 		<v-container class="d-flex align-center">
 			<RSALogo height="32" width="80" /><span
 				class="text-caption text-white ml-4"
-				>v0.2.4</span
+				>v0.3.0</span
 			>
 			<v-spacer></v-spacer>
-			<v-btn text color="white" nuxt to="/">Start Quote</v-btn>
-			<v-btn text color="white" nuxt to="/sku">SKU</v-btn>
+			<v-btn variant="text" color="white" nuxt to="/">New Quote</v-btn>
+			<v-btn variant="text" color="white" nuxt to="/sku">SKU</v-btn>
 			<v-btn
 				icon="mdi-shopping-outline"
 				color="white"

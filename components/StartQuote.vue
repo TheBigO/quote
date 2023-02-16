@@ -1,58 +1,93 @@
 <script setup>
 import { useBuilderStore } from '@/store/builder';
-
 const storeBuilder = useBuilderStore();
 const router = useRouter();
 
+storeBuilder.resetProducts();
 storeBuilder.fetchProducts();
+// storeBuilder.fetchSalesReps();
 
-async function buildProduct(productID) {
-	await storeBuilder.fetchProduct(productID);
+function createQuote() {
+	storeBuilder.createNewQuote();
 	router.push({ path: '/builder' });
 }
 </script>
 
 <template>
-	<h1 class="text-h3 text-center mb-12">Choose your TOUGHBOOK</h1>
-	<v-row>
-		<v-col
-			cols="12"
-			md="4"
-			v-for="product in storeBuilder.products"
-			:key="product._id"
-		>
+	<div>
+		<h1 class="text-h3 text-center mb-6">Sales Quote</h1>
+		<div class="d-flex justify-center align-center">
 			<v-card
 				flat
-				class="d-flex flex-column bg-grey-lighten-4 rounded-xl pa-12"
+				class="d-flex flex-column rounded-lg px-8 py-10"
+				width="480px"
 			>
-				<img :src="product.image" />
-				<h2 class="text-center mb-2">{{ product.name }}</h2>
-				<div class="mb-6 short-description">{{ product.description }}</div>
-				<div class="d-flex align-center justify-center mb-4">
-					<span class="text-body-2 text-grey mr-2">starting</span><sup>$</sup
-					><span class="text-h4">{{ product.basePrice }}</span>
-				</div>
-				<div class="text-center">
-					<v-btn
-						flat
-						block
-						color="blue-darken-4"
-						class="mb-3"
-						@click="buildProduct(product._id)"
-						>Select</v-btn
+				<div class="text-overline mb-3">Customer Information</div>
+				<v-row>
+					<v-col>
+						<v-text-field
+							v-model="storeBuilder.contact.firstName"
+							label="FirstName"
+							hide-details="true"
+							required
+							:rules="[(v) => !!v || 'A first name is required']"
+						></v-text-field
+					></v-col>
+					<v-col>
+						<v-text-field
+							v-model="storeBuilder.contact.lastName"
+							label="Last Name"
+							hide-details="true"
+							required
+							:rules="[(v) => !!v || 'A last name is required']"
+						></v-text-field
+					></v-col>
+				</v-row>
+				<v-row>
+					<v-col>
+						<v-text-field
+							v-model="storeBuilder.contact.company"
+							label="Company"
+							hide-details="true"
+							required
+							:rules="[(v) => !!v || 'A company is required']"
+						></v-text-field>
+					</v-col>
+				</v-row>
+				<v-row>
+					<v-col>
+						<v-text-field
+							v-model="storeBuilder.contact.email"
+							label="Email"
+							hide-details="true"
+							required
+							:rules="[(v) => !!v || 'An email is required']"
+						></v-text-field> </v-col
+				></v-row>
+				<!-- <v-row>
+					<v-col>
+						<v-select
+							v-model="storeBuilder.contact.salesRep"
+							label="Account Manager"
+							:items="storeBuilder.salesReps"
+							item-title="fullName"
+							item-value="_id"
+							hide-details="true"
+						></v-select></v-col
+				></v-row> -->
+				<v-row>
+					<v-col>
+						<v-btn
+							block
+							size="large"
+							variant="tonal"
+							color="blue-darken-1"
+							@click="createQuote"
+							>Start Quote</v-btn
+						></v-col
 					>
-				</div>
+				</v-row>
 			</v-card>
-			<div v-for="tb in product.options">
-				<div>{{ tb.name }}</div>
-			</div>
-		</v-col>
-	</v-row>
+		</div>
+	</div>
 </template>
-
-<style scoped>
-.short-description ul li {
-	list-style: none;
-	padding-bottom: 10px;
-}
-</style>

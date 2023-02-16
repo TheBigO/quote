@@ -28,6 +28,7 @@ export default defineNuxtConfig({
 
 	runtimeConfig: {
 		mongoDB: process.env.MONGO_URI,
+		sendgridAPI: process.env.SENDGRID_API,
 	},
 
 	modules: [

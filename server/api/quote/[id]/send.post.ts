@@ -1,28 +1,7 @@
 import sgMail from '@sendgrid/mail';
+const config = useRuntimeConfig();
 
-// const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(
-	'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'
-);
-// const msg = {
-// 	to: 'nick@ondrako.com',
-// 	from: 'michael.cayes@mooringtech.com',
-// 	subject: 'Sending with Twilio SendGrid is Fun',
-// 	text: 'and easy to do anywhere, even with Node.js',
-// 	html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-// };
-//ES8
-// (async () => {
-// 	try {
-// 		await sgMail.send(msg);
-// 	} catch (error) {
-// 		console.error(error);
-
-// 		if (error.response) {
-// 			console.error(error.response.body);
-// 		}
-// 	}
-// })();
+sgMail.setApiKey(config.sendgridAPI);
 
 export default defineEventHandler(async (event) => {
 	try {

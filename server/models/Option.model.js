@@ -30,6 +30,9 @@ const optionSchema = new Schema(
 			type: String,
 			trim: true,
 		},
+		order: {
+			type: Number,
+		},
 	},
 	{ timestamps: true }
 );

@@ -11,6 +11,7 @@ storeBuilder.fetchAccessories();
 			<tr>
 				<th></th>
 				<th class="text-left">Device</th>
+				<th class="text-left">Model</th>
 				<th class="text-left">SKU</th>
 				<th class="text-left">Price</th>
 			</tr>
@@ -21,6 +22,7 @@ storeBuilder.fetchAccessories();
 					<v-img :src="accessory.image" width="48px" :aspect-ratio="1"></v-img>
 				</td>
 				<td class="text-left">{{ accessory.name }}</td>
+				<td class="text-left">{{ accessory.modelName }}</td>
 				<td class="text-left">{{ accessory.sku }}</td>
 				<td class="text-left">${{ accessory.price }}</td>
 			</tr>

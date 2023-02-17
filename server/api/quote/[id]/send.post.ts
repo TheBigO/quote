@@ -1,4 +1,5 @@
 import sgMail from '@sendgrid/mail';
+import Quote from '~/server/models/Quote.model';
 const config = useRuntimeConfig();
 
 sgMail.setApiKey(config.sendgridAPI);
@@ -35,6 +36,10 @@ export default defineEventHandler(async (event) => {
 			.catch((error) => {
 				console.error(error);
 			});
+
+		await Quote.findByIdAndUpdate(body._id, {
+			$set: { completed: true },
+		});
 
 		return 'quote sent';
 	} catch (error) {

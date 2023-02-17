@@ -105,6 +105,9 @@ function addProductToQuote() {
 											storeBuilder.toughbook.screen === variation.name
 												? 'active-card-bg'
 												: '',
+											storeBuilder.toughbook.ram === variation.name
+												? 'active-card-bg'
+												: '',
 										]"
 										><div
 											class="text-subtitle-1 font-weight-bold text-grey-darken-3"

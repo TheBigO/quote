@@ -31,6 +31,13 @@ const quoteSchema = new Schema(
 			type: Number,
 			trim: true,
 		},
+		quoteTotal: {
+			type: Number,
+		},
+		completed: {
+			type: Boolean,
+			default: false,
+		},
 	},
 	{ timestamps: true }
 );

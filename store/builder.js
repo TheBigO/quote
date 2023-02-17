@@ -4,6 +4,8 @@ export const useBuilderStore = defineStore('builder', {
 		product: {},
 		toughbooks: [],
 		toughbook: {},
+		quotes: [],
+		quote: {},
 		accessories: [],
 		productTotal: {
 			base: 0,
@@ -14,7 +16,7 @@ export const useBuilderStore = defineStore('builder', {
 		},
 		customer: {},
 		quantity: 1,
-		quote: {},
+
 		cart: [],
 		cartTotal: 0,
 		salesReps: [],
@@ -53,7 +55,11 @@ export const useBuilderStore = defineStore('builder', {
 		async fetchAccessories() {
 			this.accessories = await $fetch('/api/accessory');
 		},
+		async fetchQuotes() {
+			this.quotes = await $fetch('/api/quote');
+		},
 		updateModel(o, v) {
+			console.log(v.name);
 			if (o === 'CPU') {
 				this.toughbook.cpu = v.name;
 				this.productTotal.cpu = v.price;
@@ -69,6 +75,12 @@ export const useBuilderStore = defineStore('builder', {
 			if (o === '4G LTE/GPS') {
 				this.toughbook.gps = v.name;
 				this.productTotal.gps = v.price;
+				this.fetchToughbook();
+			}
+
+			if (o === 'RAM') {
+				this.toughbook.ram = v.name;
+				this.productTotal.ram = v.price;
 				this.fetchToughbook();
 			}
 		},

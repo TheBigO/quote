@@ -14,6 +14,7 @@ export default defineEventHandler(async (event) => {
 			{
 				path: 'options',
 				model: Option,
+				options: { sort: [{ order: 1 }] },
 			},
 		]);
 

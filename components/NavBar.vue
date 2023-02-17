@@ -13,8 +13,9 @@ const storeBuilder = useBuilderStore();
 				>v0.3.0</span
 			>
 			<v-spacer></v-spacer>
-			<v-btn variant="text" color="white" nuxt to="/">New Quote</v-btn>
+			<v-btn variant="tonal" color="yellow" nuxt to="/">New Quote</v-btn>
 			<v-btn variant="text" color="white" nuxt to="/sku">SKU</v-btn>
+			<v-btn variant="text" color="white" nuxt to="/quote">Quotes</v-btn>
 			<v-btn
 				icon="mdi-shopping-outline"
 				color="white"

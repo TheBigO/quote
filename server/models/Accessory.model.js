@@ -9,6 +9,10 @@ const accessorySchema = new Schema(
 				ref: 'Toughbook',
 			},
 		],
+		modelName: {
+			type: String,
+			trim: true,
+		},
 		sku: {
 			type: String,
 			trim: true,

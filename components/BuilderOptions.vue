@@ -160,7 +160,7 @@ function addProductToQuote() {
 								{{ storeBuilder.toughbook.sku }}
 							</div>
 						</div>
-						<div>
+						<div v-if="storeBuilder.toughbook.sku != '---'">
 							<v-btn
 								variant="tonal"
 								block

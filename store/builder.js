@@ -47,9 +47,10 @@ export const useBuilderStore = defineStore('builder', {
 			const cpu = this.toughbook.cpu;
 			const gps = this.toughbook.gps;
 			const screen = this.toughbook.screen;
+			const ram = this.toughbook.ram;
 
 			this.toughbook = await $fetch(
-				`/api/toughbook/query?name=${name}&cpu=${cpu}&gps=${gps}&screen=${screen}`
+				`/api/toughbook/query?name=${name}&cpu=${cpu}&gps=${gps}&screen=${screen}&ram=${ram}`
 			);
 		},
 		async fetchAccessories() {
@@ -207,21 +208,13 @@ export const useBuilderStore = defineStore('builder', {
 		},
 	},
 	getters: {
-		getProductTotal(state) {
+		getProductTotal() {
 			const formatter = new Intl.NumberFormat('en-US', {
 				style: 'currency',
 				currency: 'USD',
 			});
 
-			const productTotal =
-				state.productTotal.base +
-				state.productTotal.cpu +
-				state.productTotal.gps +
-				state.productTotal.screen;
-
-			const total = productTotal * state.quantity;
-
-			const totalCurrency = formatter.format(total);
+			const totalCurrency = formatter.format(this.toughbook.price);
 
 			return totalCurrency;
 		},

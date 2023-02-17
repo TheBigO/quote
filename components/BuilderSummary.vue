@@ -38,7 +38,7 @@ const storeBuilder = useBuilderStore();
 											icon="mdi-close"
 											variant="tonal"
 											color="blue-lighten-2"
-											@click="storeBuilder.removeFromCart(item._id)"
+											@click="storeBuilder.removeToughbookFromQuote(item._id)"
 										></v-btn>
 									</div>
 									<div class="d-flex">
@@ -110,7 +110,7 @@ const storeBuilder = useBuilderStore();
 											icon="mdi-close"
 											variant="tonal"
 											color="blue-lighten-2"
-											@click="storeBuilder.removeFromCart(item._id)"
+											@click="storeBuilder.removeAccessoryFromQuote(item._id)"
 										></v-btn>
 									</div>
 									<div class="d-flex">

@@ -37,19 +37,26 @@ function addProductToQuote() {
 				</div>
 
 				<div class="px-16 mt-12 short-description">
-					<div>{{ storeBuilder.product.description }}</div>
+					<div v-html="storeBuilder.product.extendedDescription"></div>
 				</div>
 			</v-col>
 			<v-col cols="12" md="5" class="d-flex flex-column pa-6">
 				<div class="text-h4 font-weight-bold">
 					{{ storeBuilder.product.name }}
 				</div>
-				<div class="d-flex">
-					<div class="text-body-2 text-grey-darken-2">
-						Starting at ${{ storeBuilder.product.basePrice }}
+				<div class="d-flex align-center mt-2 pointer">
+					<img style="width: 16px" src="/images/pdf_icon.png" />
+
+					<div class="text-caption text-grey-darken-3 font-weight-bold ml-2">
+						<a
+							:href="storeBuilder.product.specSheet"
+							target="_blank"
+							class="text-decoration-none text-overline text-grey-darken-3 font-weight-bold"
+							>View {{ storeBuilder.product.name }} Specifications</a
+						>
 					</div>
 				</div>
-				<v-divider class="my-6"></v-divider>
+				<v-divider class="mt-4 mb-6"></v-divider>
 
 				<div class="d-flex flex-column">
 					<div
@@ -72,7 +79,7 @@ function addProductToQuote() {
 											<v-card width="420px" class="py-4 px-6">
 												<v-card-text>
 													<h3>{{ option.tooltipTitle }}</h3>
-													{{ option.tooltipContent }}
+													<div v-html="option.tooltipContent"></div>
 												</v-card-text>
 											</v-card>
 										</v-container>

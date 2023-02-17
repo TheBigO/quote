@@ -126,8 +126,23 @@ export const useBuilderStore = defineStore('builder', {
 				}
 			);
 		},
-		removeFromCart(id) {
-			console.log('pull item');
+		async removeToughbookFromQuote(id) {
+			this.quote = await $fetch(
+				`/api/quote/${this.quote._id}/toughbook/remove`,
+				{
+					method: 'PATCH',
+					body: id,
+				}
+			);
+		},
+		async removeAccessoryFromQuote(id) {
+			this.quote = await $fetch(
+				`/api/quote/${this.quote._id}/accessory/remove`,
+				{
+					method: 'PATCH',
+					body: id,
+				}
+			);
 		},
 		async resetProducts() {
 			this.product = {};

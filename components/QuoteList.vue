@@ -27,7 +27,7 @@ function convertShortDate(date) {
 			<tr v-for="quote in storeBuilder.quotes" :key="quote._id">
 				<td class="text-left">QA-{{ quote.quoteNumber }}</td>
 				<td class="text-left">
-					{{ quote.contact.firstName }} {{ quote.contact.firstName }}
+					{{ quote.contact.firstName }} {{ quote.contact.lastName }}
 				</td>
 				<td class="text-left">{{ convertShortDate(quote.createdAt) }}</td>
 				<td class="text-left">${{ quote.quoteTotal }}</td>

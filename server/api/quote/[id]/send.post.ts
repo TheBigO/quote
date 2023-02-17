@@ -12,9 +12,10 @@ export default defineEventHandler(async (event) => {
 		const templateData = {
 			firstName: body.contact.firstName,
 			lastName: body.contact.lastName,
+			quote: body,
 		};
 
-		console.log(body.contact.email);
+		console.log(body);
 
 		const msg = {
 			to: body.contact.email,

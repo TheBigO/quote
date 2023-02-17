@@ -185,7 +185,6 @@ function addProductToQuote() {
 				</section>
 			</v-col>
 		</v-row>
-		<!-- <QuoteFooter /> -->
 	</div>
 </template>
 

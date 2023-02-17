@@ -201,6 +201,7 @@ export const useBuilderStore = defineStore('builder', {
 		},
 
 		async sendQuote() {
+			console.log(this.quote);
 			await $fetch(`/api/quote/${this.quote._id}/send`, {
 				method: 'POST',
 				body: this.quote,
@@ -209,14 +210,14 @@ export const useBuilderStore = defineStore('builder', {
 	},
 	getters: {
 		getProductTotal() {
-			const formatter = new Intl.NumberFormat('en-US', {
-				style: 'currency',
-				currency: 'USD',
-			});
-
-			const totalCurrency = formatter.format(this.toughbook.price);
-
-			return totalCurrency;
+			function convertToCurrency() {
+				return new Intl.NumberFormat('en-US', {
+					style: 'currency',
+					currency: 'USD',
+					maximumFractionDigits: 0,
+					minimumFractionDigits: 0,
+				}).format(this.toughbook.price);
+			}
 		},
 		getQuote(state) {
 			state.quote;

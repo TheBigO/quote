@@ -11,23 +11,26 @@ function sendQuote() {
 </script>
 
 <template>
-	<v-card flat class="d-flex flex-column rounded-lg pa-4">
-		<div class="text-overline mb-3">Sales Quote Details</div>
-		<section v-if="storeBuilder.quote.contact" class="d-flex flex-column py-3">
-			<div class="d-flex">
+	<v-card flat class="d-flex flex-column rounded-lg pa-6">
+		<div class="text-overline mb-3">Sales Quote Totals</div>
+		<section
+			v-if="storeBuilder.quote.contact"
+			class="d-flex flex-column px-3 py-3"
+		>
+			<div class="d-flex justify-space-between mb-1">
 				<div class="text-subtitle-2 text-grey-darken-2 mr-3">Shipping</div>
-				<div>Not Included</div>
+				<div class="text-body-2">Additional Fee</div>
 			</div>
-			<div class="d-flex">
+			<div class="d-flex justify-space-between mb-1">
 				<div class="text-subtitle-2 text-grey-darken-2 mr-3">Taxes</div>
-				<div>Not Included</div>
+				<div class="text-body-2">Not Calculated</div>
 			</div>
-			<div class="d-flex">
+			<div class="d-flex justify-space-between">
 				<div class="text-subtitle-2 text-grey-darken-2 mr-3">SubTotal</div>
-				<div class="font-weight-bold">$5,000</div>
+				<div class="text-h5 font-weight-bold">$5,000</div>
 			</div>
 		</section>
-		<div class="mt-6">
+		<div class="mt-4">
 			<v-btn variant="tonal" block color="blue-darken-2" @click="sendQuote"
 				>Send Quote</v-btn
 			>

@@ -3,6 +3,15 @@ import { useBuilderStore } from '@/store/builder';
 
 const storeBuilder = useBuilderStore();
 storeBuilder.fetchToughbooks();
+
+function convertToCurrency(total) {
+	return new Intl.NumberFormat('en-US', {
+		style: 'currency',
+		currency: 'USD',
+		maximumFractionDigits: 0,
+		minimumFractionDigits: 0,
+	}).format(total);
+}
 </script>
 
 <template>
@@ -10,6 +19,7 @@ storeBuilder.fetchToughbooks();
 		<thead>
 			<tr>
 				<th class="text-left">Device</th>
+				<th class="text-left">MSRP</th>
 				<th class="text-left">SKU</th>
 				<th class="text-center">CPU</th>
 				<th class="text-center">RAM</th>
@@ -21,6 +31,10 @@ storeBuilder.fetchToughbooks();
 		<tbody>
 			<tr v-for="product in storeBuilder.toughbooks" :key="product._id">
 				<td>{{ product.name }}</td>
+				<td>
+					<div v-if="product.price === 0">---</div>
+					<div v-else>{{ convertToCurrency(product.price) }}</div>
+				</td>
 				<td>{{ product.sku }}</td>
 				<td class="text-center">{{ product.cpu }}</td>
 				<td class="text-center">{{ product.ram }}</td>

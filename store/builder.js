@@ -210,14 +210,12 @@ export const useBuilderStore = defineStore('builder', {
 	},
 	getters: {
 		getProductTotal() {
-			function convertToCurrency() {
-				return new Intl.NumberFormat('en-US', {
-					style: 'currency',
-					currency: 'USD',
-					maximumFractionDigits: 0,
-					minimumFractionDigits: 0,
-				}).format(this.toughbook.price);
-			}
+			return new Intl.NumberFormat('en-US', {
+				style: 'currency',
+				currency: 'USD',
+				maximumFractionDigits: 0,
+				minimumFractionDigits: 0,
+			}).format(this.toughbook.price);
 		},
 		getQuote(state) {
 			state.quote;

@@ -8,15 +8,13 @@ export default defineEventHandler(async (event) => {
 	try {
 		const body = await readBody(event);
 
-		console.log(body);
-
 		const templateId = 'd-be991bfc9bbb4204ac56a4401b88ced3';
 		const templateData = {
 			quote: body,
 		};
 
 		const msg = {
-			to: 'nick@ondrako.com',
+			to: body.contact.email,
 			from: {
 				email: 'loquendo@setcomcorp.com',
 				name: 'Lori Oquendo',

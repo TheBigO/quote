@@ -38,7 +38,7 @@ const accessorySchema = new Schema(
 			trim: true,
 			default: 0,
 		},
-		quantity: {
+		qty: {
 			type: Number,
 			default: 1,
 		},

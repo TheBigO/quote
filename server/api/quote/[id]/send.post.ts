@@ -8,14 +8,12 @@ export default defineEventHandler(async (event) => {
 	try {
 		const body = await readBody(event);
 
+		console.log(body);
+
 		const templateId = 'd-be991bfc9bbb4204ac56a4401b88ced3';
 		const templateData = {
-			firstName: body.contact.firstName,
-			lastName: body.contact.lastName,
 			quote: body,
 		};
-
-		console.log(body);
 
 		const msg = {
 			to: body.contact.email,
@@ -26,8 +24,6 @@ export default defineEventHandler(async (event) => {
 			templateId: templateId,
 			dynamic_template_data: templateData,
 		};
-
-		console.log(body);
 
 		await sgMail
 			.send(msg)
@@ -42,7 +38,7 @@ export default defineEventHandler(async (event) => {
 			$set: { completed: true },
 		});
 
-		return 'quote sent';
+		return 'Quote sent';
 	} catch (error) {
 		console.log(error);
 	}

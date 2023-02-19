@@ -7,7 +7,7 @@ const storeBuilder = useBuilderStore();
 const dialog = ref(false);
 
 function addProductToQuote() {
-	storeBuilder.addToQuote();
+	storeBuilder.addToughbookToQuote();
 	router.push({ path: '/builder/accessories' });
 }
 </script>

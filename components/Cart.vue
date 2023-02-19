@@ -43,7 +43,7 @@ function convertToCurrency(total) {
 			<div class="text-overline mb-8">Products For Quote</div>
 			<div
 				v-for="item in storeBuilder.quote.toughbooks"
-				:key="item.sku"
+				:key="item._id"
 				class="d-flex flex-column"
 			>
 				<v-card flat class="mb-8">
@@ -51,36 +51,36 @@ function convertToCurrency(total) {
 						<div class="d-flex align-center">
 							<div class="d-flex">
 								<div class="mr-3">
-									<v-img :src="item.image" width="64px"></v-img>
+									<v-img :src="item.model.image" width="64px"></v-img>
 								</div>
 								<div class="d-flex flex-column">
 									<div class="text-body-2 text-blue-darken-2">
-										{{ item.sku }}
+										{{ item.model.sku }}
 									</div>
 									<div class="text-subtitle-1">
-										{{ item.device }}
+										{{ item.model.device }}
 									</div>
 
 									<div
 										class="text-body-2 text-grey-darken-2"
-										v-if="item.cpu || item.gps || item.screen"
+										v-if="item.model.cpu || item.model.gps || item.model.screen"
 									>
-										<span v-if="item.cpu">{{ item.cpu }}</span> •
-										<span v-if="item.gps">{{ item.gps }}</span> •
-										<span v-if="item.ram">{{ item.ram }}</span>
+										<span v-if="item.model.cpu">{{ item.model.cpu }}</span> •
+										<span v-if="item.model.gps">{{ item.model.gps }}</span> •
+										<span v-if="item.model.ram">{{ item.model.ram }}</span>
 									</div>
 									<div
-										v-if="item.screen"
+										v-if="item.model.screen"
 										class="text-body-2 text-grey-darken-2"
 									>
-										{{ item.screen }}
+										{{ item.model.screen }}
 									</div>
 								</div>
 							</div>
 						</div>
 
 						<div class="d-flex justify-end font-weight-bold">
-							{{ convertToCurrency(item.price) }}
+							{{ convertToCurrency(item.model.price) }}
 						</div>
 					</div>
 				</v-card>
@@ -90,7 +90,7 @@ function convertToCurrency(total) {
 		<section v-if="storeBuilder.quote.accessories != 0">
 			<div
 				v-for="item in storeBuilder.quote.accessories"
-				:key="item.sku"
+				:key="item._id"
 				class="d-flex flex-column"
 			>
 				<v-card flat class="mb-8">
@@ -98,21 +98,21 @@ function convertToCurrency(total) {
 						<div class="d-flex align-center">
 							<div class="d-flex">
 								<div class="mr-3">
-									<v-img :src="item.image" width="64px"></v-img>
+									<v-img :src="item.model.image" width="64px"></v-img>
 								</div>
 								<div class="d-flex flex-column">
 									<div class="text-body-2 text-blue-darken-2">
-										{{ item.sku }}
+										{{ item.model.sku }}
 									</div>
 									<div class="text-subtitle-2">
-										{{ item.name }}
+										{{ item.model.name }}
 									</div>
 								</div>
 							</div>
 						</div>
 
 						<div class="font-weight-bold">
-							{{ convertToCurrency(item.price) }}
+							{{ convertToCurrency(item.model.price) }}
 						</div>
 					</div>
 				</v-card>

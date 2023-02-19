@@ -1,3 +1,4 @@
+import Accessory from '~/server/models/Accessory.model';
 import Option from '~/server/models/Option.model';
 import Product from '~/server/models/Product.model';
 import Toughbook from '~/server/models/Toughbook.model';
@@ -10,6 +11,10 @@ export default defineEventHandler(async (event) => {
 			{
 				path: 'toughbooks',
 				model: Toughbook,
+				populate: {
+					path: 'accessories',
+					model: Accessory,
+				},
 			},
 			{
 				path: 'options',

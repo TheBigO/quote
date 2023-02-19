@@ -66,7 +66,7 @@ async function viewBuildSummary() {
 						<v-btn
 							variant="tonal"
 							color="blue-darken-2"
-							@click="storeBuilder.addAccessory(accessory)"
+							@click="storeBuilder.addAccessoryToQuote(accessory)"
 							>Add to quote</v-btn
 						>
 					</div>

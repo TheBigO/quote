@@ -9,16 +9,27 @@ const quoteSchema = new Schema(
 		},
 		toughbooks: [
 			{
-				type: Schema.Types.ObjectId,
-				ref: 'Toughbook',
+				model: {
+					type: Schema.Types.ObjectId,
+					ref: 'Toughbook',
+				},
+				qty: {
+					type: Number,
+				},
 			},
 		],
 		accessories: [
 			{
-				type: Schema.Types.ObjectId,
-				ref: 'Accessory',
+				model: {
+					type: Schema.Types.ObjectId,
+					ref: 'Accessory',
+				},
+				qty: {
+					type: Number,
+				},
 			},
 		],
+
 		salesPerson: {
 			type: Schema.Types.ObjectId,
 			ref: 'Employee',
@@ -33,6 +44,7 @@ const quoteSchema = new Schema(
 		},
 		quoteTotal: {
 			type: Number,
+			default: 0,
 		},
 		completed: {
 			type: Boolean,

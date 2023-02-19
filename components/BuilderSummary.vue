@@ -3,6 +3,8 @@ import { useBuilderStore } from '@/store/builder';
 
 const storeBuilder = useBuilderStore();
 
+const hovered = ref(null);
+
 function convertToCurrency(total) {
 	return new Intl.NumberFormat('en-US', {
 		style: 'currency',
@@ -43,71 +45,105 @@ function convertToCurrency(total) {
 					<section v-if="storeBuilder.quote != 0">
 						<div
 							v-for="item in storeBuilder.quote.toughbooks"
-							:key="item.sku"
+							:key="item._id"
 							class="d-flex flex-column"
 						>
-							<v-card flat class="mb-8">
-								<div class="d-flex justify-space-between">
+							<v-card
+								flat
+								class="mb-2 pa-3"
+								@mouseover="hovered = item._id"
+								@mouseleave="hovered = null"
+								:class="hovered === item._id ? 'bg-grey-lighten-5' : ''"
+							>
+								<div class="d-flex justify-space-between align-center">
 									<div class="d-flex align-center">
-										<div class="mr-3">
+										<div
+											v-if="hovered === item._id"
+											class="mr-3"
+											style="width: 40px"
+										>
 											<v-btn
 												size="x-small"
 												icon="mdi-close"
 												variant="tonal"
 												color="blue-lighten-2"
-												@click="storeBuilder.removeToughbookFromQuote(item._id)"
+												@click="storeBuilder.removeToughbookFromQuote(item)"
 											></v-btn>
 										</div>
+										<div v-else class="mr-3" style="width: 40px"></div>
 										<div class="d-flex">
 											<div class="mr-3">
-												<v-img :src="item.image" width="72px"></v-img>
+												<v-img :src="item.model.image" width="72px"></v-img>
 											</div>
 											<div class="d-flex flex-column">
 												<div class="text-body-2 text-blue-darken-2">
-													{{ item.sku }}
+													{{ item.model.sku }}
 												</div>
 												<div class="text-subtitle-1">
-													{{ item.device }}
+													{{ item.model.device }}
 												</div>
 
 												<div
 													class="text-body-2 text-grey-darken-2"
-													v-if="item.cpu || item.gps || item.screen"
+													v-if="
+														item.model.cpu ||
+														item.model.gps ||
+														item.model.screen
+													"
 												>
-													<span v-if="item.cpu">{{ item.cpu }}</span> •
-													<span v-if="item.gps">{{ item.gps }}</span> •
-													<span v-if="item.ram">{{ item.ram }}</span>
+													<span v-if="item.model.cpu">{{
+														item.model.cpu
+													}}</span>
+													•
+													<span v-if="item.model.gps">{{
+														item.model.gps
+													}}</span>
+													•
+													<span v-if="item.model.ram">{{
+														item.model.ram
+													}}</span>
 												</div>
 												<div
 													v-if="item.screen"
 													class="text-body-2 text-grey-darken-2"
 												>
-													{{ item.screen }}
+													{{ item.model.screen }}
 												</div>
 											</div>
 										</div>
 									</div>
 
-									<div class="d-flex align-center font-weight-bold me-1">
-										<div class="mr-5">{{ convertToCurrency(item.price) }}</div>
-
-										<div class="d-flex align-center mr-4">
-											<v-btn
-												size="x-small"
-												icon="mdi-minus"
-												variant="tonal"
-												color="blue-lighten-2"
-												@click="storeBuilder.decreaseCount()"
-											></v-btn>
-											<div class="mx-3">{{ storeBuilder.quantity }}</div>
-											<v-btn
-												size="x-small"
-												icon="mdi-plus"
-												variant="tonal"
-												color="blue-lighten-2"
-												@click="storeBuilder.increaseCount()"
-											></v-btn>
+									<div class="d-flex align-end font-weight-bold">
+										<div class="mr-12">
+											{{ convertToCurrency(item.model.price) }}
 										</div>
+
+										<div style="max-width: 50px">
+											<v-text-field
+												v-model="item.qty"
+												type="number"
+												variant="underlined"
+												label="Qty"
+												hide-details="true"
+												required
+												:rules="[(v) => !!v || 'A first name is required']"
+												min="1"
+											></v-text-field>
+										</div>
+
+										<div
+											v-if="hovered === item._id"
+											style="width: 76px"
+											class="mx-6"
+										>
+											<v-btn
+												variant="tonal"
+												color="blue-lighten-2"
+												@click="storeBuilder.updateToughbookQuantity(item)"
+												>update</v-btn
+											>
+										</div>
+										<div v-else style="width: 76px" class="mx-6"></div>
 									</div>
 								</div>
 							</v-card>
@@ -117,13 +153,23 @@ function convertToCurrency(total) {
 					<section v-if="storeBuilder.quote != 0">
 						<div
 							v-for="item in storeBuilder.quote.accessories"
-							:key="item.sku"
+							:key="item._id"
 							class="d-flex flex-column"
 						>
-							<v-card flat class="mb-8">
-								<div class="d-flex justify-space-between">
+							<v-card
+								flat
+								class="mb-2 pa-3"
+								@mouseover="hovered = item._id"
+								@mouseleave="hovered = null"
+								:class="hovered === item._id ? 'bg-grey-lighten-5' : ''"
+							>
+								<div class="d-flex justify-space-between align-center">
 									<div class="d-flex align-center">
-										<div class="mr-3">
+										<div
+											v-if="hovered === item._id"
+											class="mr-3"
+											style="width: 40px"
+										>
 											<v-btn
 												size="x-small"
 												icon="mdi-close"
@@ -132,41 +178,53 @@ function convertToCurrency(total) {
 												@click="storeBuilder.removeAccessoryFromQuote(item._id)"
 											></v-btn>
 										</div>
+										<div v-else class="mr-3" style="width: 40px"></div>
 										<div class="d-flex">
 											<div class="mr-3">
-												<v-img :src="item.image" width="72px"></v-img>
+												<v-img :src="item.model.image" width="72px"></v-img>
 											</div>
 											<div class="d-flex flex-column">
 												<div class="text-body-2 text-blue-darken-2">
-													{{ item.sku }}
+													{{ item.model.sku }}
 												</div>
 												<div class="text-subtitle-2">
-													{{ item.name }}
+													{{ item.model.name }}
 												</div>
 											</div>
 										</div>
 									</div>
 
-									<div class="d-flex align-center font-weight-bold">
-										<div class="mr-5">{{ convertToCurrency(item.price) }}</div>
-
-										<div class="d-flex align-center mr-4">
-											<v-btn
-												size="x-small"
-												icon="mdi-minus"
-												variant="tonal"
-												color="blue-lighten-2"
-												@click="storeBuilder.decreaseCount()"
-											></v-btn>
-											<div class="mx-3">{{ storeBuilder.quantity }}</div>
-											<v-btn
-												size="x-small"
-												icon="mdi-plus"
-												variant="tonal"
-												color="blue-lighten-2"
-												@click="storeBuilder.increaseCount()"
-											></v-btn>
+									<div class="d-flex align-end font-weight-bold">
+										<div class="mr-12">
+											{{ convertToCurrency(item.model.price) }}
 										</div>
+
+										<div style="max-width: 50px">
+											<v-text-field
+												v-model="item.qty"
+												type="number"
+												variant="underlined"
+												label="Qty"
+												hide-details="true"
+												required
+												:rules="[(v) => !!v || 'A first name is required']"
+												min="1"
+											></v-text-field>
+										</div>
+
+										<div
+											v-if="hovered === item._id"
+											style="width: 76px"
+											class="mx-6"
+										>
+											<v-btn
+												variant="tonal"
+												color="blue-lighten-2"
+												@click="storeBuilder.updateAccessoryQuantity(item)"
+												>update</v-btn
+											>
+										</div>
+										<div v-else style="width: 76px" class="mx-6"></div>
 									</div>
 								</div>
 							</v-card>

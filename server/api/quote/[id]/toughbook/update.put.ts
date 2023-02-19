@@ -6,18 +6,23 @@ import Toughbook from '~/server/models/Toughbook.model';
 export default defineEventHandler(async (event) => {
 	try {
 		const { id } = event.context.params;
+		const body = await readBody(event);
 
-		const quote = await Quote.findById(id).populate([
+		console.log(body);
+
+		const quote = await Quote.findByIdAndUpdate(id, body, {
+			new: true,
+		}).populate([
 			{
 				path: 'contact',
 				model: Contact,
 			},
 			{
-				path: 'toughbooks.model',
+				path: 'toughbooks',
 				model: Toughbook,
 			},
 			{
-				path: 'accessories.model',
+				path: 'accessories',
 				model: Accessory,
 			},
 		]);

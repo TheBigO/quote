@@ -6,8 +6,21 @@ import Toughbook from '~/server/models/Toughbook.model';
 export default defineEventHandler(async (event) => {
 	try {
 		const { id } = event.context.params;
+		const body = await readBody(event);
 
-		const quote = await Quote.findById(id).populate([
+		const newTotal = body.quote.quoteTotal + body.toughbook.price;
+		const newProduct = { model: body.toughbook._id, qty: 1 };
+
+		const quote = await Quote.findByIdAndUpdate(
+			id,
+			{
+				$push: { toughbooks: newProduct },
+				quoteTotal: newTotal,
+			},
+			{
+				new: true,
+			}
+		).populate([
 			{
 				path: 'contact',
 				model: Contact,

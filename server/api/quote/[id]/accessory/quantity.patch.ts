@@ -6,8 +6,11 @@ import Toughbook from '~/server/models/Toughbook.model';
 export default defineEventHandler(async (event) => {
 	try {
 		const { id } = event.context.params;
+		const body = await readBody(event);
 
-		const quote = await Quote.findById(id).populate([
+		const quote = await Quote.findByIdAndUpdate(id, body, {
+			new: true,
+		}).populate([
 			{
 				path: 'contact',
 				model: Contact,

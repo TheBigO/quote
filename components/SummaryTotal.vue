@@ -27,7 +27,9 @@ function sendQuote() {
 			</div>
 			<div class="d-flex justify-space-between">
 				<div class="text-subtitle-2 text-grey-darken-2 mr-3">SubTotal</div>
-				<div class="text-h5 font-weight-bold">$5,000</div>
+				<div class="text-h5 font-weight-bold">
+					{{ storeBuilder.getQuoteTotal }}
+				</div>
 			</div>
 		</section>
 		<div class="mt-4">

@@ -28,6 +28,7 @@ export const useBuilderStore = defineStore('builder', {
 			email: '',
 			salesRep: '',
 		},
+		message: null,
 	}),
 	actions: {
 		async fetchProducts() {
@@ -118,6 +119,7 @@ export const useBuilderStore = defineStore('builder', {
 
 			// this.cart.push(this.toughbook);
 		},
+
 		async addAccessory(accessory) {
 			this.quote = await $fetch(
 				`/api/quote/${this.quote._id}/accessory/update`,
@@ -127,15 +129,80 @@ export const useBuilderStore = defineStore('builder', {
 				}
 			);
 		},
-		async removeToughbookFromQuote(id) {
+
+		async updateQuote() {
+			this.quote = await $fetch(
+				`/api/quote/${this.quote._id}/toughbook/update`,
+				{
+					method: 'PATCH',
+					body: this.quote,
+				}
+			);
+		},
+
+		/// Quote - Add Toughbook, Update QTY and Remove
+
+		async addToughbookToQuote() {
+			this.drawer = true;
+			this.quote = await $fetch(`/api/quote/${this.quote._id}/toughbook/add`, {
+				method: 'PATCH',
+				body: { quote: this.quote, toughbook: this.toughbook },
+			});
+		},
+
+		async updateToughbookQuantity(item) {
+			this.quote.quoteTotal += item.model.price * item.qty;
+
+			this.quote = await $fetch(
+				`/api/quote/${this.quote._id}/toughbook/quantity`,
+				{
+					method: 'PATCH',
+					body: this.quote,
+				}
+			);
+		},
+
+		async removeToughbookFromQuote(item) {
+			this.quote.quoteTotal -= item.model.price * item.qty;
+
 			this.quote = await $fetch(
 				`/api/quote/${this.quote._id}/toughbook/remove`,
 				{
 					method: 'PATCH',
-					body: id,
+					body: { total: this.quote.quoteTotal, toughbook: item },
 				}
 			);
+
+			this.fetchQuote();
 		},
+
+		/// Quote - Add Accessory, Update QTY and Remove
+
+		async addAccessoryToQuote(accessory) {
+			this.quote = await $fetch(`/api/quote/${this.quote._id}/accessory/add`, {
+				method: 'PATCH',
+				body: { quote: this.quote, accessory: accessory },
+			});
+
+			this.fetchQuote();
+		},
+
+		async updateAccessoryQuantity(item) {
+			const productTotal = item.model.price * item.qty;
+
+			this.quote.quoteTotal += productTotal;
+
+			this.quote = await $fetch(
+				`/api/quote/${this.quote._id}/accessory/quantity`,
+				{
+					method: 'PATCH',
+					body: this.quote,
+				}
+			);
+
+			this.fetchQuote();
+		},
+
 		async removeAccessoryFromQuote(id) {
 			this.quote = await $fetch(
 				`/api/quote/${this.quote._id}/accessory/remove`,
@@ -201,11 +268,12 @@ export const useBuilderStore = defineStore('builder', {
 		},
 
 		async sendQuote() {
-			console.log(this.quote);
-			await $fetch(`/api/quote/${this.quote._id}/send`, {
+			this.message = await $fetch(`/api/quote/${this.quote._id}/send`, {
 				method: 'POST',
 				body: this.quote,
 			});
+
+			console.log(this.message);
 		},
 	},
 	getters: {
@@ -216,6 +284,15 @@ export const useBuilderStore = defineStore('builder', {
 				maximumFractionDigits: 0,
 				minimumFractionDigits: 0,
 			}).format(this.toughbook.price);
+		},
+
+		getQuoteTotal() {
+			return new Intl.NumberFormat('en-US', {
+				style: 'currency',
+				currency: 'USD',
+				maximumFractionDigits: 0,
+				minimumFractionDigits: 0,
+			}).format(this.quote.quoteTotal);
 		},
 		getQuote(state) {
 			state.quote;

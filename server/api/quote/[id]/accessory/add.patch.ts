@@ -5,11 +5,14 @@ export default defineEventHandler(async (event) => {
 		const { id } = event.context.params;
 		const body = await readBody(event);
 
+		const newTotal = body.quote.quoteTotal + body.accessory.price;
+		const newProduct = { model: body.accessory._id, qty: 1 };
+
 		const quote = await Quote.findByIdAndUpdate(
 			id,
 			{
-				$pull: { toughbooks: { _id: body.toughbook._id } },
-				quoteTotal: body.total,
+				$push: { accessories: newProduct },
+				quoteTotal: newTotal,
 			},
 			{
 				new: true,

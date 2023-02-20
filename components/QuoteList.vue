@@ -39,7 +39,7 @@ function convertToCurrency(total) {
 					{{ quote.contact.firstName }} {{ quote.contact.lastName }}
 				</td>
 				<td class="text-left">{{ convertShortDate(quote.createdAt) }}</td>
-				<td class="text-left">${{ convertToCurrency(quote.quoteTotal) }}</td>
+				<td class="text-left">{{ convertToCurrency(quote.quoteTotal) }}</td>
 			</tr>
 		</tbody>
 	</v-table>

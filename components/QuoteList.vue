@@ -11,6 +11,15 @@ function convertShortDate(date) {
 		year: 'numeric',
 	});
 }
+
+function convertToCurrency(total) {
+	return new Intl.NumberFormat('en-US', {
+		style: 'currency',
+		currency: 'USD',
+		maximumFractionDigits: 0,
+		minimumFractionDigits: 0,
+	}).format(total);
+}
 </script>
 
 <template>
@@ -30,7 +39,7 @@ function convertShortDate(date) {
 					{{ quote.contact.firstName }} {{ quote.contact.lastName }}
 				</td>
 				<td class="text-left">{{ convertShortDate(quote.createdAt) }}</td>
-				<td class="text-left">${{ quote.quoteTotal }}</td>
+				<td class="text-left">${{ convertToCurrency(quote.quoteTotal) }}</td>
 			</tr>
 		</tbody>
 	</v-table>

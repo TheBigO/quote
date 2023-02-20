@@ -9,7 +9,11 @@ export default defineEventHandler(async (event) => {
 		const body = await readBody(event);
 
 		const newTotal = body.quote.quoteTotal + body.toughbook.price;
-		const newProduct = { model: body.toughbook._id, qty: 1 };
+		const newProduct = {
+			model: body.toughbook._id,
+			qty: 1,
+			total: body.toughbook.price,
+		};
 
 		const quote = await Quote.findByIdAndUpdate(
 			id,

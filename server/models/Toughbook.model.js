@@ -62,8 +62,8 @@ const toughbookSchema = new Schema(
 	{ timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
-toughbookSchema.virtual('totalPrice').get(function () {
-	return this.price * this.quantity;
-});
+// toughbookSchema.virtual('totalPrice').get(function () {
+// 	return this.price * this.quantity;
+// });
 
 export default mongoose.model('Toughbook', toughbookSchema);

@@ -151,7 +151,10 @@ export const useBuilderStore = defineStore('builder', {
 		},
 
 		async updateToughbookQuantity(item) {
-			this.quote.quoteTotal += item.model.price * item.qty;
+			const newTotal = item.model.price * item.qty;
+			this.quote.quoteTotal += newTotal - item.total;
+
+			item.total = newTotal;
 
 			this.quote = await $fetch(
 				`/api/quote/${this.quote._id}/toughbook/quantity`,
@@ -163,7 +166,7 @@ export const useBuilderStore = defineStore('builder', {
 		},
 
 		async removeToughbookFromQuote(item) {
-			this.quote.quoteTotal -= item.model.price * item.qty;
+			this.quote.quoteTotal -= item.total;
 
 			this.quote = await $fetch(
 				`/api/quote/${this.quote._id}/toughbook/remove`,
@@ -188,9 +191,10 @@ export const useBuilderStore = defineStore('builder', {
 		},
 
 		async updateAccessoryQuantity(item) {
-			const productTotal = item.model.price * item.qty;
+			const newTotal = item.model.price * item.qty;
+			this.quote.quoteTotal += newTotal - item.total;
 
-			this.quote.quoteTotal += productTotal;
+			item.total = newTotal;
 
 			this.quote = await $fetch(
 				`/api/quote/${this.quote._id}/accessory/quantity`,
@@ -204,7 +208,8 @@ export const useBuilderStore = defineStore('builder', {
 		},
 
 		async removeAccessoryFromQuote(item) {
-			this.quote.quoteTotal -= item.model.price * item.qty;
+			this.quote.quoteTotal -= item.total;
+
 			this.quote = await $fetch(
 				`/api/quote/${this.quote._id}/accessory/remove`,
 				{

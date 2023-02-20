@@ -6,7 +6,11 @@ export default defineEventHandler(async (event) => {
 		const body = await readBody(event);
 
 		const newTotal = body.quote.quoteTotal + body.accessory.price;
-		const newProduct = { model: body.accessory._id, qty: 1 };
+		const newProduct = {
+			model: body.accessory._id,
+			qty: 1,
+			total: body.accessory.price,
+		};
 
 		const quote = await Quote.findByIdAndUpdate(
 			id,

@@ -46,8 +46,8 @@ const accessorySchema = new Schema(
 	{ timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
-accessorySchema.virtual('totalPrice').get(function () {
-	return this.price * this.quantity;
-});
+// accessorySchema.virtual('totalPrice').get(function () {
+// 	return this.price * this.quantity;
+// });
 
 export default mongoose.model('Accessory', accessorySchema);

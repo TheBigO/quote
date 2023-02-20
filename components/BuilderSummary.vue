@@ -175,7 +175,7 @@ function convertToCurrency(total) {
 												icon="mdi-close"
 												variant="tonal"
 												color="blue-lighten-2"
-												@click="storeBuilder.removeAccessoryFromQuote(item._id)"
+												@click="storeBuilder.removeAccessoryFromQuote(item)"
 											></v-btn>
 										</div>
 										<div v-else class="mr-3" style="width: 40px"></div>

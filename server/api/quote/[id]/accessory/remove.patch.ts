@@ -1,7 +1,4 @@
-import Accessory from '~/server/models/Accessory.model';
-import Contact from '~/server/models/Contact.model';
 import Quote from '~/server/models/Quote.model';
-import Toughbook from '~/server/models/Toughbook.model';
 
 export default defineEventHandler(async (event) => {
 	try {
@@ -11,25 +8,13 @@ export default defineEventHandler(async (event) => {
 		const quote = await Quote.findByIdAndUpdate(
 			id,
 			{
-				$pull: { accessories: body },
+				$pull: { accessories: { _id: body.accessory._id } },
+				quoteTotal: body.total,
 			},
 			{
 				new: true,
 			}
-		).populate([
-			{
-				path: 'contact',
-				model: Contact,
-			},
-			{
-				path: 'toughbooks',
-				model: Toughbook,
-			},
-			{
-				path: 'accessories',
-				model: Accessory,
-			},
-		]);
+		);
 
 		return quote;
 	} catch (error) {

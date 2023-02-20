@@ -10,7 +10,7 @@ const storeBuilder = useBuilderStore();
 		<v-container class="d-flex align-center">
 			<RSALogo height="32" width="80" /><span
 				class="text-caption text-white ml-4"
-				>v0.3.5</span
+				>v0.3.6</span
 			>
 			<v-spacer></v-spacer>
 			<v-btn variant="tonal" color="yellow" nuxt to="/">New Quote</v-btn>

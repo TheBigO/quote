@@ -203,14 +203,17 @@ export const useBuilderStore = defineStore('builder', {
 			this.fetchQuote();
 		},
 
-		async removeAccessoryFromQuote(id) {
+		async removeAccessoryFromQuote(item) {
+			this.quote.quoteTotal -= item.model.price * item.qty;
 			this.quote = await $fetch(
 				`/api/quote/${this.quote._id}/accessory/remove`,
 				{
 					method: 'PATCH',
-					body: id,
+					body: { total: this.quote.quoteTotal, accessory: item },
 				}
 			);
+
+			this.fetchQuote();
 		},
 		async resetProducts() {
 			this.product = {};

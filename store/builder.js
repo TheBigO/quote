@@ -256,19 +256,45 @@ export const useBuilderStore = defineStore('builder', {
 				body: contact,
 			});
 
-			// await $fetch(
-			// 	'https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8',
-			// 	{
-			// 		method: 'POST',
-			// 		lead: {
-			// 			firstName: 'Rachel',
-			// 			lastName: 'Adams',
-			// 			phone: '012-345-6789',
-			// 			email: 'rachel.adams@jpmc.com',
-			// 			company: 'Salesforce',
-			// 		},
-			// 	}
-			// );
+			const sfURL =
+				'https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8';
+
+			const formData = {
+				formFieldsList: {
+					formFields: [
+						{ name: 'oid', value: '00D5e000002FKJk' },
+						{ name: 'lead_source', value: 'QuoteApp' },
+						{
+							name: 'first_name',
+							value: 'Walter',
+						},
+						{
+							name: 'last_name',
+							value: 'White',
+						},
+						{
+							name: 'email',
+							value: 'walter@test.com',
+						},
+						{
+							name: 'company',
+							value: 'RSA',
+						},
+					],
+				},
+			};
+
+			const lead = await $fetch(sfURL, {
+				method: 'POST',
+				mode: 'cors',
+				data: formData,
+				headers: {
+					'Access-Control-Allow-Origin': '*',
+				},
+				body: JSON.stringify(formData),
+			});
+
+			console.log(lead);
 		},
 
 		async fetchSalesReps() {

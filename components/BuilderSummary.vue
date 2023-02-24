@@ -31,7 +31,6 @@ function convertToCurrency(total) {
 				</v-btn>
 			</div>
 		</v-row>
-		<v-row> </v-row>
 		<v-row>
 			<v-col cols="12" md="8">
 				<v-card flat class="d-flex flex-column rounded-lg pa-6">
@@ -235,6 +234,7 @@ function convertToCurrency(total) {
 			<v-col cols="12" md="4">
 				<div class="d-flex flex-column">
 					<SummaryDetails class="mb-6" />
+					<SummarySalesRep class="mb-6" />
 					<SummaryTotal />
 				</div>
 			</v-col>

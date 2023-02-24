@@ -1,4 +1,5 @@
 import Contact from '~/server/models/Contact.model';
+import Employee from '~/server/models/Employee.model';
 import Quote from '~/server/models/Quote.model';
 
 export default defineEventHandler(async (event) => {
@@ -7,6 +8,10 @@ export default defineEventHandler(async (event) => {
 			{
 				path: 'contact',
 				model: Contact,
+			},
+			{
+				path: 'salesPerson',
+				model: Employee,
 			},
 		]);
 

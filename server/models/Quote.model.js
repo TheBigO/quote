@@ -39,7 +39,6 @@ const quoteSchema = new Schema(
 				},
 			},
 		],
-
 		salesPerson: {
 			type: Schema.Types.ObjectId,
 			ref: 'Employee',

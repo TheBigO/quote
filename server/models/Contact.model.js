@@ -26,11 +26,11 @@ const contactSchema = new Schema(
 			trim: true,
 		},
 	},
-	{ timestamps: true }
+	{ timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
 contactSchema.virtual('fullName').get(function () {
-	return `${this.firstName} ${this.lastName}`;
+	return this.firstName + ' ' + this.lastName;
 });
 
 export default mongoose.model('Contact', contactSchema);

@@ -28,8 +28,7 @@ function convertToCurrency(total) {
 		<div class="text-overline mb-3">Customer Information</div>
 		<section v-if="storeBuilder.quote.contact" class="d-flex flex-column py-3">
 			<div class="font-weight-bold">
-				<span>{{ storeBuilder.quote.contact.firstName }}</span>
-				<span>{{ storeBuilder.quote.contact.lastName }}</span>
+				{{ storeBuilder.quote.contact.fullName }}
 			</div>
 			<div class="text-grey-darken-1">
 				{{ storeBuilder.quote.contact.company }}

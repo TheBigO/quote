@@ -1,4 +1,5 @@
 import sgMail from '@sendgrid/mail';
+import Contact from '~/server/models/Contact.model';
 import Quote from '~/server/models/Quote.model';
 const config = useRuntimeConfig();
 
@@ -23,17 +24,6 @@ export default defineEventHandler(async (event) => {
 			dynamic_template_data: templateData,
 		};
 
-		// const msg = {
-		// 	to: 'nick@ondrako.com', // Change to your recipient
-		// 	from: {
-		// 		email: 'loquendo@setcomcorp.com',
-		// 		name: 'Lori Oquendo',
-		// 	},
-		// 	subject: 'Sending with SendGrid is Fun',
-		// 	text: 'and easy to do anywhere, even with Node.js',
-		// 	html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-		// };
-
 		await sgMail
 			.send(msg)
 			.then(() => {
@@ -42,6 +32,8 @@ export default defineEventHandler(async (event) => {
 			.catch((error) => {
 				console.error(error);
 			});
+
+		await Contact.findByIdAndUpdate(body.contact._id, body.contact);
 
 		await Quote.findByIdAndUpdate(body._id, {
 			$set: { completed: true },

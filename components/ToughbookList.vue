@@ -23,9 +23,9 @@ function convertToCurrency(total) {
 				<th class="text-left">SKU</th>
 				<th class="text-center">CPU</th>
 				<th class="text-center">RAM</th>
-				<th class="text-center">GPS</th>
+				<th class="text-center">4G LTE/GPS</th>
 				<th class="text-center">Screen</th>
-				<th class="text-center">Inventory</th>
+				<th class="text-center">Inventory Plan</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -50,7 +50,7 @@ function convertToCurrency(total) {
 				</td>
 				<td class="text-center">
 					<v-chip v-if="product.inventory === true" color="green" label
-						>In Stock</v-chip
+						>Stocked</v-chip
 					>
 				</td>
 			</tr>

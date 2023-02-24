@@ -83,7 +83,7 @@ function convertToCurrency(total) {
 											{{ convertToCurrency(item.model.price) }}
 										</div>
 
-										<div>{{ item.model.qty }}</div>
+										<div>{{ item.qty }}</div>
 									</div>
 								</div>
 							</v-card>
@@ -119,7 +119,7 @@ function convertToCurrency(total) {
 											{{ convertToCurrency(item.model.price) }}
 										</div>
 
-										<div>{{ item.model.qty }}</div>
+										<div>{{ item.qty }}</div>
 									</div>
 								</div>
 							</v-card>

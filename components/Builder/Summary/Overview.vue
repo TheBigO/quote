@@ -1,6 +1,6 @@
 <script setup>
 import { useBuilderStore } from '@/store/builder';
-
+const router = useRouter();
 const storeBuilder = useBuilderStore();
 
 const hovered = ref(null);
@@ -12,6 +12,11 @@ function convertToCurrency(total) {
 		maximumFractionDigits: 0,
 		minimumFractionDigits: 0,
 	}).format(total);
+}
+
+function updateQuoteAndAdd() {
+	storeBuilder.updateQuote();
+	router.push({ path: '/builder' });
 }
 </script>
 
@@ -25,7 +30,7 @@ function convertToCurrency(total) {
 					color="blue-darken-2"
 					prepend-icon="mdi-plus"
 					class="mx-2 mb-12"
-					to="/builder"
+					@click="updateQuoteAndAdd"
 				>
 					Add More Products
 				</v-btn>
@@ -203,23 +208,13 @@ function convertToCurrency(total) {
 							</v-card>
 						</div>
 					</section>
-					<!-- <section class="d-flex justify-end mt-12">
-						<div>
-							<v-btn
-								variant="tonal"
-								color="blue-lighten-2"
-								@click="storeBuilder.updateQuote"
-								>Update Quote</v-btn
-							>
-						</div>
-					</section> -->
 				</v-card>
 			</v-col>
 			<v-col cols="12" md="4">
 				<div class="d-flex flex-column">
-					<SummaryDetails class="mb-6" />
-					<SummarySalesRep class="mb-6" />
-					<SummaryTotal />
+					<BuilderSummaryCustomer class="mb-6" />
+					<BuilderSummarySalesRep class="mb-6" />
+					<BuilderSummaryTotal />
 				</div>
 			</v-col>
 		</v-row>

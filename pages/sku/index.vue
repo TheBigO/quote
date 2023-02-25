@@ -1,9 +1,6 @@
 <script setup>
-import Accessories from '@/components/AccessoryList.vue';
-import Toughbooks from '@/components/ToughbookList.vue';
-// import { useBuilderStore } from '@/store/builder';
-
-// const storeBuilder = useBuilderStore();
+import Accessories from '~~/components/SKU/AccessoryList.vue';
+import Toughbooks from '~~/components/SKU/ToughbookList.vue';
 
 const currentTab = ref('Toughbooks');
 

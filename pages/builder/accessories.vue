@@ -1,4 +1,8 @@
-<script setup></script>
+<script setup>
+definePageMeta({
+	layout: 'builder',
+});
+</script>
 
 <template>
 	<BuilderAccessories />

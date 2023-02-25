@@ -3,13 +3,33 @@ import { useBuilderStore } from '@/store/builder';
 const storeBuilder = useBuilderStore();
 const router = useRouter();
 
-storeBuilder.resetProducts();
+storeBuilder.resetQuote();
 storeBuilder.fetchProducts();
 // storeBuilder.fetchSalesReps();
 
+const rules = {
+	required: (value) => !!value || 'Required.',
+	email: (value) => {
+		const pattern =
+			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		return pattern.test(value) || 'Invalid e-mail.';
+	},
+};
+
 function createQuote() {
-	storeBuilder.createNewQuote();
-	router.push({ path: '/builder' });
+	const required = {
+		firstName: storeBuilder.contact.firstName,
+		laststName: storeBuilder.contact.lastName,
+		company: storeBuilder.contact.company,
+		email: storeBuilder.contact.email,
+	};
+
+	const complete = Object.values(required).every((value) => value);
+
+	if (complete) {
+		storeBuilder.createNewQuote();
+		router.push({ path: '/builder' });
+	}
 }
 </script>
 
@@ -27,19 +47,21 @@ function createQuote() {
 					<v-col>
 						<v-text-field
 							v-model="storeBuilder.contact.firstName"
+							type="text"
 							label="FirstName"
 							hide-details="true"
 							required
-							:rules="[(v) => !!v || 'A first name is required']"
+							:rules="[rules.required]"
 						></v-text-field
 					></v-col>
 					<v-col>
 						<v-text-field
 							v-model="storeBuilder.contact.lastName"
+							type="text"
 							label="Last Name"
 							hide-details="true"
 							required
-							:rules="[(v) => !!v || 'A last name is required']"
+							:rules="[rules.required]"
 						></v-text-field
 					></v-col>
 				</v-row>
@@ -47,10 +69,11 @@ function createQuote() {
 					<v-col>
 						<v-text-field
 							v-model="storeBuilder.contact.company"
+							type="text"
 							label="Company"
 							hide-details="true"
 							required
-							:rules="[(v) => !!v || 'A company is required']"
+							:rules="[rules.required]"
 						></v-text-field>
 					</v-col>
 				</v-row>
@@ -58,10 +81,11 @@ function createQuote() {
 					<v-col>
 						<v-text-field
 							v-model="storeBuilder.contact.email"
+							type="email"
 							label="Email"
 							hide-details="true"
 							required
-							:rules="[(v) => !!v || 'An email is required']"
+							:rules="[rules.required, rules.email]"
 						></v-text-field> </v-col
 				></v-row>
 				<!-- <v-row>

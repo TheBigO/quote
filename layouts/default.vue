@@ -1,6 +1,6 @@
 <template>
 	<v-app>
-		<NavBar />
+		<NavMainBar />
 		<Cart />
 		<v-main>
 			<v-container class="mt-12">

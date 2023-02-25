@@ -1,9 +1,9 @@
 <script setup>
 definePageMeta({
-	layout: 'summary',
+	layout: 'builder',
 });
 </script>
 
 <template>
-	<BuilderSummary />
+	<BuilderSummaryOverview />
 </template>

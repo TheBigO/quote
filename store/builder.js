@@ -4,8 +4,6 @@ export const useBuilderStore = defineStore('builder', {
 		product: {},
 		toughbooks: [],
 		toughbook: {},
-		quotes: [],
-		quote: {},
 		accessories: [],
 		productTotal: {
 			base: 0,
@@ -14,12 +12,7 @@ export const useBuilderStore = defineStore('builder', {
 			screen: 0,
 			ram: 0,
 		},
-		customer: {},
-		quantity: 1,
-
 		cart: [],
-		cartTotal: 0,
-		salesReps: [],
 		drawer: false,
 		contact: {
 			firstName: '',
@@ -28,6 +21,10 @@ export const useBuilderStore = defineStore('builder', {
 			email: '',
 			salesRep: '',
 		},
+		customer: {},
+		salesReps: [],
+		quotes: [],
+		quote: {},
 		message: null,
 	}),
 	actions: {
@@ -54,14 +51,23 @@ export const useBuilderStore = defineStore('builder', {
 				`/api/toughbook/query?name=${name}&cpu=${cpu}&gps=${gps}&screen=${screen}&ram=${ram}`
 			);
 		},
+
 		async fetchAccessories() {
 			this.accessories = await $fetch('/api/accessory');
 		},
+
+		async fetchSalesReps() {
+			this.salesReps = await $fetch('/api/employees');
+		},
+
 		async fetchQuotes() {
 			this.quotes = await $fetch('/api/quote');
 		},
+		async fetchQuote() {
+			this.quote = await $fetch(`/api/quote/${this.quote._id}`);
+		},
+
 		updateModel(o, v) {
-			console.log(v.name);
 			if (o === 'CPU') {
 				this.toughbook.cpu = v.name;
 				this.productTotal.cpu = v.price;
@@ -86,61 +92,15 @@ export const useBuilderStore = defineStore('builder', {
 				this.fetchToughbook();
 			}
 		},
-		// increaseCount() {
-		// 	this.quantity++;
-		// },
-		// decreaseCount() {
-		// 	this.quantity--;
-		// },
-		async addToQuote() {
-			this.drawer = true;
-			this.toughbook = await $fetch(`/api/toughbook/${this.toughbook._id}`);
 
-			const totalPrice =
-				this.productTotal.base +
-				this.productTotal.cpu +
-				this.productTotal.gps +
-				this.productTotal.screen;
+		async updateQuantity(item) {
+			const newTotal = item.model.price * item.qty;
+			this.quote.quoteTotal += newTotal - item.total;
 
-			this.toughbook.price = totalPrice * this.quantity;
+			item.total = newTotal;
 
-			this.toughbook = await $fetch(
-				`/api/toughbook/${this.toughbook._id}/update`,
-				{
-					method: 'PUT',
-					body: this.toughbook,
-				}
-			);
-
-			this.quote = await $fetch(`/api/quote/${this.quote._id}/update`, {
-				method: 'PATCH',
-				body: this.toughbook._id,
-			});
-
-			// this.cart.push(this.toughbook);
+			console.log('updated');
 		},
-
-		async addAccessory(accessory) {
-			this.quote = await $fetch(
-				`/api/quote/${this.quote._id}/accessory/update`,
-				{
-					method: 'PATCH',
-					body: accessory._id,
-				}
-			);
-		},
-
-		async updateQuote() {
-			this.quote = await $fetch(
-				`/api/quote/${this.quote._id}/toughbook/update`,
-				{
-					method: 'PATCH',
-					body: this.quote,
-				}
-			);
-		},
-
-		/// Quote - Add Toughbook, Update QTY and Remove
 
 		async addToughbookToQuote() {
 			this.drawer = true;
@@ -149,22 +109,6 @@ export const useBuilderStore = defineStore('builder', {
 				body: { quote: this.quote, toughbook: this.toughbook },
 			});
 		},
-
-		async updateQuantity(item) {
-			const newTotal = item.model.price * item.qty;
-			this.quote.quoteTotal += newTotal - item.total;
-
-			item.total = newTotal;
-
-			// this.quote = await $fetch(
-			// 	`/api/quote/${this.quote._id}/toughbook/quantity`,
-			// 	{
-			// 		method: 'PATCH',
-			// 		body: this.quote,
-			// 	}
-			// );
-		},
-
 		async removeToughbookFromQuote(item) {
 			this.quote.quoteTotal -= item.total;
 
@@ -179,8 +123,6 @@ export const useBuilderStore = defineStore('builder', {
 			this.fetchQuote();
 		},
 
-		/// Quote - Add Accessory, Update QTY and Remove
-
 		async addAccessoryToQuote(accessory) {
 			this.quote = await $fetch(`/api/quote/${this.quote._id}/accessory/add`, {
 				method: 'PATCH',
@@ -189,24 +131,6 @@ export const useBuilderStore = defineStore('builder', {
 
 			this.fetchQuote();
 		},
-
-		// async updateAccessoryQuantity(item) {
-		// 	const newTotal = item.model.price * item.qty;
-		// 	this.quote.quoteTotal += newTotal - item.total;
-
-		// 	item.total = newTotal;
-
-		// 	this.quote = await $fetch(
-		// 		`/api/quote/${this.quote._id}/accessory/quantity`,
-		// 		{
-		// 			method: 'PATCH',
-		// 			body: this.quote,
-		// 		}
-		// 	);
-
-		// 	this.fetchQuote();
-		// },
-
 		async removeAccessoryFromQuote(item) {
 			this.quote.quoteTotal -= item.total;
 
@@ -220,41 +144,14 @@ export const useBuilderStore = defineStore('builder', {
 
 			this.fetchQuote();
 		},
-		async resetProducts() {
-			this.product = {};
-			this.customer = {};
-			this.contact = {};
-			this.toughbooks = [];
-			this.toughbook = {};
-			this.quote = {};
-			this.cart = [];
-			this.productTotal = {
-				base: 0,
-				cpu: 0,
-				gps: 0,
-				screen: 0,
-				ram: 0,
-			};
-			this.quantity = 1;
-			this.drawer = false;
-		},
 
 		async createNewQuote() {
 			this.quote = await $fetch('/api/quote/create', {
 				method: 'POST',
 				body: this.contact,
 			});
-		},
 
-		async fetchQuote() {
-			this.quote = await $fetch(`/api/quote/${this.quote._id}`);
-		},
-
-		async saveQuote(contact) {
-			this.customer = await $fetch('/api/quote/create', {
-				method: 'POST',
-				body: contact,
-			});
+			/// then send to Salesforce and create a lead
 
 			const sfURL =
 				'https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8';
@@ -284,7 +181,7 @@ export const useBuilderStore = defineStore('builder', {
 				},
 			};
 
-			const lead = await $fetch(sfURL, {
+			await $fetch(sfURL, {
 				method: 'POST',
 				mode: 'cors',
 				data: formData,
@@ -293,12 +190,15 @@ export const useBuilderStore = defineStore('builder', {
 				},
 				body: JSON.stringify(formData),
 			});
-
-			console.log(lead);
 		},
 
-		async fetchSalesReps() {
-			this.salesReps = await $fetch('/api/employees');
+		async updateQuote() {
+			this.quote = await $fetch(`/api/quote/${this.quote._id}/update`, {
+				method: 'PATCH',
+				body: this.quote,
+			});
+
+			this.fetchQuote();
 		},
 
 		async sendQuote() {
@@ -309,7 +209,26 @@ export const useBuilderStore = defineStore('builder', {
 
 			console.log(this.message);
 		},
+
+		async resetQuote() {
+			this.product = {};
+			this.customer = {};
+			this.contact = {};
+			this.toughbooks = [];
+			this.toughbook = {};
+			this.quote = {};
+			this.cart = [];
+			this.productTotal = {
+				base: 0,
+				cpu: 0,
+				gps: 0,
+				screen: 0,
+				ram: 0,
+			};
+			this.drawer = false;
+		},
 	},
+
 	getters: {
 		getProductTotal() {
 			return new Intl.NumberFormat('en-US', {
@@ -328,6 +247,7 @@ export const useBuilderStore = defineStore('builder', {
 				minimumFractionDigits: 0,
 			}).format(this.quote.quoteTotal);
 		},
+
 		getQuote(state) {
 			state.quote;
 		},

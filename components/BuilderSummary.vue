@@ -127,22 +127,9 @@ function convertToCurrency(total) {
 												required
 												:rules="[(v) => !!v || 'A first name is required']"
 												min="1"
+												@change="storeBuilder.updateQuantity(item)"
 											></v-text-field>
 										</div>
-
-										<div
-											v-if="hovered === item._id"
-											style="width: 76px"
-											class="mx-6"
-										>
-											<v-btn
-												variant="tonal"
-												color="blue-lighten-2"
-												@click="storeBuilder.updateToughbookQuantity(item)"
-												>update</v-btn
-											>
-										</div>
-										<div v-else style="width: 76px" class="mx-6"></div>
 									</div>
 								</div>
 							</v-card>
@@ -208,27 +195,24 @@ function convertToCurrency(total) {
 												required
 												:rules="[(v) => !!v || 'A first name is required']"
 												min="1"
+												@change="storeBuilder.updateQuantity(item)"
 											></v-text-field>
 										</div>
-
-										<div
-											v-if="hovered === item._id"
-											style="width: 76px"
-											class="mx-6"
-										>
-											<v-btn
-												variant="tonal"
-												color="blue-lighten-2"
-												@click="storeBuilder.updateAccessoryQuantity(item)"
-												>update</v-btn
-											>
-										</div>
-										<div v-else style="width: 76px" class="mx-6"></div>
 									</div>
 								</div>
 							</v-card>
 						</div>
 					</section>
+					<!-- <section class="d-flex justify-end mt-12">
+						<div>
+							<v-btn
+								variant="tonal"
+								color="blue-lighten-2"
+								@click="storeBuilder.updateQuote"
+								>Update Quote</v-btn
+							>
+						</div>
+					</section> -->
 				</v-card>
 			</v-col>
 			<v-col cols="12" md="4">

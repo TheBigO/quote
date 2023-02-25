@@ -86,12 +86,12 @@ export const useBuilderStore = defineStore('builder', {
 				this.fetchToughbook();
 			}
 		},
-		increaseCount() {
-			this.quantity++;
-		},
-		decreaseCount() {
-			this.quantity--;
-		},
+		// increaseCount() {
+		// 	this.quantity++;
+		// },
+		// decreaseCount() {
+		// 	this.quantity--;
+		// },
 		async addToQuote() {
 			this.drawer = true;
 			this.toughbook = await $fetch(`/api/toughbook/${this.toughbook._id}`);
@@ -150,19 +150,19 @@ export const useBuilderStore = defineStore('builder', {
 			});
 		},
 
-		async updateToughbookQuantity(item) {
+		async updateQuantity(item) {
 			const newTotal = item.model.price * item.qty;
 			this.quote.quoteTotal += newTotal - item.total;
 
 			item.total = newTotal;
 
-			this.quote = await $fetch(
-				`/api/quote/${this.quote._id}/toughbook/quantity`,
-				{
-					method: 'PATCH',
-					body: this.quote,
-				}
-			);
+			// this.quote = await $fetch(
+			// 	`/api/quote/${this.quote._id}/toughbook/quantity`,
+			// 	{
+			// 		method: 'PATCH',
+			// 		body: this.quote,
+			// 	}
+			// );
 		},
 
 		async removeToughbookFromQuote(item) {
@@ -190,22 +190,22 @@ export const useBuilderStore = defineStore('builder', {
 			this.fetchQuote();
 		},
 
-		async updateAccessoryQuantity(item) {
-			const newTotal = item.model.price * item.qty;
-			this.quote.quoteTotal += newTotal - item.total;
+		// async updateAccessoryQuantity(item) {
+		// 	const newTotal = item.model.price * item.qty;
+		// 	this.quote.quoteTotal += newTotal - item.total;
 
-			item.total = newTotal;
+		// 	item.total = newTotal;
 
-			this.quote = await $fetch(
-				`/api/quote/${this.quote._id}/accessory/quantity`,
-				{
-					method: 'PATCH',
-					body: this.quote,
-				}
-			);
+		// 	this.quote = await $fetch(
+		// 		`/api/quote/${this.quote._id}/accessory/quantity`,
+		// 		{
+		// 			method: 'PATCH',
+		// 			body: this.quote,
+		// 		}
+		// 	);
 
-			this.fetchQuote();
-		},
+		// 	this.fetchQuote();
+		// },
 
 		async removeAccessoryFromQuote(item) {
 			this.quote.quoteTotal -= item.total;

@@ -150,7 +150,7 @@ function addProductToQuote() {
 									v-if="storeBuilder.toughbook.inventory === true"
 									color="green"
 									label
-									>In Stock</v-chip
+									>Stocked</v-chip
 								>
 							</div>
 						</div>
@@ -176,9 +176,9 @@ function addProductToQuote() {
 							><span
 								v-if="storeBuilder.toughbook.inventory === true"
 								class="text-body-2"
-								>In Stock & Shipping</span
+								>Usually In Stock & Ready To Ship</span
 							><span v-else class="text-body-2"
-								>This item is not in stock, delivery times very</span
+								>Usually Not In Stock. Delivery Times Very</span
 							>
 						</div>
 					</v-card>

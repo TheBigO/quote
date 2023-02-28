@@ -54,6 +54,10 @@ const toughbookSchema = new Schema(
 			trim: true,
 			default: 0,
 		},
+		radio: {
+			type: String,
+			trim: true,
+		},
 		qty: {
 			type: Number,
 			default: 1,

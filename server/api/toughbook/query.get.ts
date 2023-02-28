@@ -11,6 +11,7 @@ export default defineEventHandler(async (event) => {
 			gps: query.gps,
 			screen: query.screen,
 			ram: query.ram,
+			radio: query.radio,
 		}).populate({
 			path: 'accessories',
 			model: Accessory,

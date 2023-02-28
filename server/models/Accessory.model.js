@@ -9,6 +9,12 @@ const accessorySchema = new Schema(
 				ref: 'Toughbook',
 			},
 		],
+		setcoms: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: 'Setcom',
+			},
+		],
 		modelName: {
 			type: String,
 			trim: true,

@@ -11,6 +11,7 @@ export const useBuilderStore = defineStore('builder', {
 			gps: 0,
 			screen: 0,
 			ram: 0,
+			radio: 0,
 		},
 		cart: [],
 		drawer: false,
@@ -46,9 +47,10 @@ export const useBuilderStore = defineStore('builder', {
 			const gps = this.toughbook.gps;
 			const screen = this.toughbook.screen;
 			const ram = this.toughbook.ram;
+			const radio = this.toughbook.radio;
 
 			this.toughbook = await $fetch(
-				`/api/toughbook/query?name=${name}&cpu=${cpu}&gps=${gps}&screen=${screen}&ram=${ram}`
+				`/api/toughbook/query?name=${name}&cpu=${cpu}&gps=${gps}&screen=${screen}&ram=${ram}&radio=${radio}`
 			);
 		},
 
@@ -68,6 +70,8 @@ export const useBuilderStore = defineStore('builder', {
 		},
 
 		updateModel(o, v) {
+			console.log(o);
+			console.log(v);
 			if (o === 'CPU') {
 				this.toughbook.cpu = v.name;
 				this.productTotal.cpu = v.price;
@@ -89,6 +93,13 @@ export const useBuilderStore = defineStore('builder', {
 			if (o === 'RAM') {
 				this.toughbook.ram = v.name;
 				this.productTotal.ram = v.price;
+				this.fetchToughbook();
+			}
+
+			if (o === 'Radio') {
+				console.log('down here');
+				this.toughbook.radio = v.name;
+				this.productTotal.radio = v.price;
 				this.fetchToughbook();
 			}
 		},
@@ -153,43 +164,43 @@ export const useBuilderStore = defineStore('builder', {
 
 			/// then send to Salesforce and create a lead
 
-			const sfURL =
-				'https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8';
+			// const sfURL =
+			// 	'https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8';
 
-			const formData = {
-				formFieldsList: {
-					formFields: [
-						{ name: 'oid', value: '00D5e000002FKJk' },
-						{ name: 'lead_source', value: 'QuoteApp' },
-						{
-							name: 'first_name',
-							value: 'Walter',
-						},
-						{
-							name: 'last_name',
-							value: 'White',
-						},
-						{
-							name: 'email',
-							value: 'walter@test.com',
-						},
-						{
-							name: 'company',
-							value: 'RSA',
-						},
-					],
-				},
-			};
+			// const formData = {
+			// 	formFieldsList: {
+			// 		formFields: [
+			// 			{ name: 'oid', value: '00D5e000002FKJk' },
+			// 			{ name: 'lead_source', value: 'QuoteApp' },
+			// 			{
+			// 				name: 'first_name',
+			// 				value: 'Walter',
+			// 			},
+			// 			{
+			// 				name: 'last_name',
+			// 				value: 'White',
+			// 			},
+			// 			{
+			// 				name: 'email',
+			// 				value: 'walter@test.com',
+			// 			},
+			// 			{
+			// 				name: 'company',
+			// 				value: 'RSA',
+			// 			},
+			// 		],
+			// 	},
+			// };
 
-			await $fetch(sfURL, {
-				method: 'POST',
-				mode: 'cors',
-				data: formData,
-				headers: {
-					'Access-Control-Allow-Origin': '*',
-				},
-				body: JSON.stringify(formData),
-			});
+			// await $fetch(sfURL, {
+			// 	method: 'POST',
+			// 	mode: 'cors',
+			// 	data: formData,
+			// 	headers: {
+			// 		'Access-Control-Allow-Origin': '*',
+			// 	},
+			// 	body: JSON.stringify(formData),
+			// });
 		},
 
 		async updateQuote() {

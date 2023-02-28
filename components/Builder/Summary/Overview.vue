@@ -83,8 +83,8 @@ function updateQuoteAndAdd() {
 												<div class="text-body-2 text-blue-darken-2">
 													{{ item.model.sku }}
 												</div>
-												<div class="text-subtitle-1">
-													{{ item.model.device }}
+												<div class="text-subtitle-2">
+													{{ item.model.name }}
 												</div>
 
 												<div

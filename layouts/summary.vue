@@ -1,6 +1,6 @@
 <template>
 	<v-app>
-		<NavMainBar />
+		<NavBuilderBar />
 		<Cart />
 		<v-main class="bg-grey-lighten-4">
 			<v-container class="mt-12">

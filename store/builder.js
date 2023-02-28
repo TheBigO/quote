@@ -70,8 +70,6 @@ export const useBuilderStore = defineStore('builder', {
 		},
 
 		updateModel(o, v) {
-			console.log(o);
-			console.log(v);
 			if (o === 'CPU') {
 				this.toughbook.cpu = v.name;
 				this.productTotal.cpu = v.price;
@@ -97,7 +95,6 @@ export const useBuilderStore = defineStore('builder', {
 			}
 
 			if (o === 'Radio') {
-				console.log('down here');
 				this.toughbook.radio = v.name;
 				this.productTotal.radio = v.price;
 				this.fetchToughbook();
@@ -109,8 +106,6 @@ export const useBuilderStore = defineStore('builder', {
 			this.quote.quoteTotal += newTotal - item.total;
 
 			item.total = newTotal;
-
-			console.log('updated');
 		},
 
 		async addToughbookToQuote() {

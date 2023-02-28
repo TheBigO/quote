@@ -2,6 +2,10 @@
 import Accessories from '~~/components/SKU/AccessoryList.vue';
 import Toughbooks from '~~/components/SKU/ToughbookList.vue';
 
+definePageMeta({
+	layout: 'main',
+});
+
 const currentTab = ref('Toughbooks');
 
 const tabs = {

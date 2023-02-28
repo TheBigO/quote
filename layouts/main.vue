@@ -2,7 +2,7 @@
 	<v-app>
 		<NavMainBar />
 		<Cart />
-		<v-main class="bg-grey-lighten-4">
+		<v-main>
 			<v-container class="mt-12">
 				<v-row>
 					<v-col>

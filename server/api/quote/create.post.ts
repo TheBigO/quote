@@ -8,8 +8,6 @@ export default defineEventHandler(async (event) => {
 
 		const contact = await Contact.create(body);
 
-		console.log(contact._id);
-
 		const lori = '63eceedb79870067b4496c40';
 
 		// Get the last recorded quote number

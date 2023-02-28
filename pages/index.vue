@@ -1,8 +1,4 @@
-<script setup>
-definePageMeta({
-	layout: 'summary',
-});
-</script>
+<script setup></script>
 
 <template>
 	<StartQuote />

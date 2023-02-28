@@ -1,7 +1,4 @@
 <script setup>
-definePageMeta({
-	layout: 'summary',
-});
 const route = useRoute();
 
 const { data: quote } = await useFetch(`/api/quote/${route.params.id}`);

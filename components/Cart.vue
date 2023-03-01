@@ -56,20 +56,24 @@ function convertToCurrency(total) {
 									<div class="text-body-2 text-blue-darken-2">
 										{{ item.model.sku }}
 									</div>
-									<div class="text-subtitle-1">
-										{{ item.model.device }}
+									<div class="text-subtitle-2">
+										{{ item.model.name }}
 									</div>
 
 									<div
 										class="text-body-2 text-grey-darken-2"
-										v-if="item.model.cpu || item.model.gps || item.model.screen"
+										v-if="
+											(item.model.cpu && item.model.cpu != 'None') ||
+											(item.model.gps && item.model.gps != 'None') ||
+											(item.model.ram && item.model.ram != 'None')
+										"
 									>
 										<span v-if="item.model.cpu">{{ item.model.cpu }}</span> •
 										<span v-if="item.model.gps">{{ item.model.gps }}</span> •
 										<span v-if="item.model.ram">{{ item.model.ram }}</span>
 									</div>
 									<div
-										v-if="item.model.screen"
+										v-if="item.model.screen && item.model.screen != 'None'"
 										class="text-body-2 text-grey-darken-2"
 									>
 										{{ item.model.screen }}

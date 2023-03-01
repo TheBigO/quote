@@ -5,6 +5,8 @@ export default defineEventHandler(async (event) => {
 	try {
 		const query = getQuery(event);
 
+		console.log(query);
+
 		const toughbook = await Toughbook.findOne({
 			name: query.name,
 			cpu: query.cpu,

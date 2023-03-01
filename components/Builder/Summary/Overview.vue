@@ -90,9 +90,9 @@ function updateQuoteAndAdd() {
 												<div
 													class="text-body-2 text-grey-darken-2"
 													v-if="
-														item.model.cpu ||
-														item.model.gps ||
-														item.model.screen
+														(item.model.cpu && item.model.cpu != 'None') ||
+														(item.model.gps && item.model.gps != 'None') ||
+														(item.model.ram && item.model.ram != 'None')
 													"
 												>
 													<span v-if="item.model.cpu">{{
@@ -108,7 +108,7 @@ function updateQuoteAndAdd() {
 													}}</span>
 												</div>
 												<div
-													v-if="item.screen"
+													v-if="item.model.screen"
 													class="text-body-2 text-grey-darken-2"
 												>
 													{{ item.model.screen }}

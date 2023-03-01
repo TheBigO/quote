@@ -97,6 +97,15 @@ export const useBuilderStore = defineStore('builder', {
 			if (o === 'Radio') {
 				this.toughbook.radio = v.name;
 				this.productTotal.radio = v.price;
+
+				if (v.name === 'Radio') {
+					this.toughbook.name = 'Radio-Transmit Headset';
+				}
+
+				if (v.name === 'Nope') {
+					this.toughbook.name = 'Intercom-Only Headset';
+				}
+
 				this.fetchToughbook();
 			}
 		},
@@ -230,6 +239,7 @@ export const useBuilderStore = defineStore('builder', {
 				gps: 0,
 				screen: 0,
 				ram: 0,
+				radio: 0,
 			};
 			this.drawer = false;
 		},

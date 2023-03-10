@@ -43,6 +43,10 @@ const quoteSchema = new Schema(
 			type: Schema.Types.ObjectId,
 			ref: 'Employee',
 		},
+		brand: {
+			type: String,
+			trim: true,
+		},
 		validUntil: {
 			type: String,
 			trim: true,

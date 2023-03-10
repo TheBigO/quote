@@ -5,7 +5,14 @@ const props = defineProps(['quote']);
 <template>
 	<v-card flat class="d-flex flex-column rounded-lg pa-6">
 		<div class="text-overline mb-3">Account Manager</div>
-		<section v-if="quote.salesPerson" class="d-flex flex-column py-3">
+		<section v-if="quote.salesPerson" class="d-flex flex-column">
+			<div class="text-left">
+				<img
+					:src="quote.salesPerson.logo"
+					:alt="quote.salesPerson.brand"
+					style="height: 24px"
+				/>
+			</div>
 			<div class="font-weight-bold">
 				{{ quote.salesPerson.fullName }}
 			</div>

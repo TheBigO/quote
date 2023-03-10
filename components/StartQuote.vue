@@ -5,7 +5,7 @@ const router = useRouter();
 
 storeBuilder.resetQuote();
 storeBuilder.fetchProducts();
-// storeBuilder.fetchSalesReps();
+storeBuilder.fetchSalesReps();
 
 const rules = {
 	required: (value) => !!value || 'Required.',
@@ -88,17 +88,20 @@ function createQuote() {
 							:rules="[rules.required, rules.email]"
 						></v-text-field> </v-col
 				></v-row>
-				<!-- <v-row>
+				<v-row>
 					<v-col>
-						<v-select
-							v-model="storeBuilder.contact.salesRep"
-							label="Account Manager"
-							:items="storeBuilder.salesReps"
-							item-title="fullName"
-							item-value="_id"
-							hide-details="true"
-						></v-select></v-col
-				></v-row> -->
+						<ClientOnly>
+							<v-select
+								v-model="storeBuilder.contact.salesRep"
+								label="Account Manager"
+								:items="storeBuilder.salesReps"
+								item-title="fullName"
+								item-value="_id"
+								hide-details="true"
+								return-object="true"
+							></v-select>
+						</ClientOnly> </v-col
+				></v-row>
 				<v-row>
 					<v-col>
 						<v-btn

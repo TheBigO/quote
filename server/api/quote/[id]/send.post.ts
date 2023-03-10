@@ -35,8 +35,8 @@ export default defineEventHandler(async (event) => {
 		const msg = {
 			to: body.contact.email,
 			from: {
-				email: 'loquendo@setcomcorp.com',
-				name: 'Lori Oquendo',
+				email: body.salesPerson.email,
+				name: body.salesPerson.fullName,
 			},
 			templateId: templateId,
 			dynamic_template_data: templateData,

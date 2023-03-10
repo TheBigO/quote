@@ -23,6 +23,13 @@ const employeeSchema = new Schema(
 			type: String,
 			trim: true,
 		},
+		logo: {
+			type: String,
+		},
+		active: {
+			type: Boolean,
+			default: false,
+		},
 	},
 	{ timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );

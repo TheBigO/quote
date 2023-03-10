@@ -8,8 +8,6 @@ export default defineEventHandler(async (event) => {
 
 		const contact = await Contact.create(body);
 
-		const lori = '63eceedb79870067b4496c40';
-
 		// Get the last recorded quote number
 		const lastQuote = await Quote.findOne()
 			.sort({ createdAt: -1 })
@@ -20,7 +18,8 @@ export default defineEventHandler(async (event) => {
 		const newQuote = await Quote.create({
 			contact: contact._id,
 			quoteNumber: newNumber ? newNumber + 1 : 200000,
-			salesPerson: lori,
+			salesPerson: body.salesRep._id,
+			brand: body.salesRep.company,
 		});
 
 		const quote = await newQuote.populate([

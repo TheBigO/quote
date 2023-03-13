@@ -6,7 +6,7 @@ const storeBuilder = useBuilderStore();
 
 function sendQuote() {
 	storeBuilder.sendQuote();
-	router.push({ path: '/' });
+	router.push({ path: '/builder/complete' });
 }
 </script>
 

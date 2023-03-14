@@ -108,7 +108,7 @@ function updateQuoteAndAdd() {
 													}}</span>
 												</div>
 												<div
-													v-if="item.model.screen"
+													v-if="item.model.screen != 'None'"
 													class="text-body-2 text-grey-darken-2"
 												>
 													{{ item.model.screen }}
